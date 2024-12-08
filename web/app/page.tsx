@@ -1,8 +1,9 @@
 import { ThemeToggle } from './components/header/theme-toggle'
+import { LanguageToggle } from './components/header/language-toggle'
 export default function Home() {
   return (
     <div className='w-full flex flex-col px-4'>
-      <header className='mx-auto mt-4 flex gap-4'>
+      <header className='mx-auto mt-4 flex gap-8 items-center'>
         <div className='flex-1' />
         <div className='flex-1'>
           <nav>
@@ -53,6 +54,9 @@ export default function Home() {
         </div>
         <div className='flex-1'>
           <ThemeToggle />
+        </div>
+        <div className='flex-1'>
+          <LanguageToggle />
         </div>
       </header>
     </div>
