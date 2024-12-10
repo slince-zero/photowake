@@ -1,5 +1,6 @@
 import { ThemeToggle } from './components/header/theme-toggle'
 import { LanguageToggle } from './components/header/language-toggle'
+import LandingBody from './components/main/landing-body'
 export default function Home() {
   return (
     <div className='w-full flex flex-col px-4'>
@@ -59,6 +60,9 @@ export default function Home() {
           <LanguageToggle />
         </div>
       </header>
+      <main className='mx-auto mt-4'>
+        <LandingBody />
+      </main>
     </div>
   )
 }
