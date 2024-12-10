@@ -6,7 +6,6 @@ type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number]
 
 export default function Dropdown({ currentLang }: { currentLang: string }) {
   const setCurrentLang = useLanguageStore((state) => state.setCurrentLang)
-  console.log('currentLan33333g', currentLang)
 
   // 验证当前语言是否支持，如果不支持则使用 'en'
   const validLang = SUPPORTED_LANGUAGES.includes(
@@ -16,7 +15,7 @@ export default function Dropdown({ currentLang }: { currentLang: string }) {
     : 'en'
 
   return (
-    <div className='absolute w-24 p-2 flex flex-col gap-2 mt-2 text-lg border shadow dark:border-zinc-800 rounded-md'>
+    <div className='absolute w-24 p-2 flex flex-col gap-2 mt-2 text-lg border shadow bg-white dark:bg-zinc-900 dark:border-zinc-800 rounded-md'>
       <ul>
         <li
           className='hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded px-2 py-1'
