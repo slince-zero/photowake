@@ -5,10 +5,6 @@ export default function LandingBody() {
         <div className='flex flex-wrap gap-4 items-center justify-center'>
           <h1 className='text-4xl min-h-[70px] md:text-6xl font-bold text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent'>
             {/* 创造独特的数字头像 */}
-            {/* 
-          'Create Your Unique Digital Avatar',
-          'Design Your Perfect Digital Self',
-          'Make Your Avatar Stand Out' */}
             Create Your Unique
           </h1>
           <span className='text-4xl md:text-6xl font-bold text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent inline-block overflow-hidden w-0 animate-typing whitespace-nowrap border-r-4 border-r-purple-600 [--typing-width:11ch] pb-2 leading-tight'>
