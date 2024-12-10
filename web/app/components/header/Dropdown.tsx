@@ -6,6 +6,7 @@ type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number]
 
 export default function Dropdown({ currentLang }: { currentLang: string }) {
   const setCurrentLang = useLanguageStore((state) => state.setCurrentLang)
+  console.log('currentLan33333g', currentLang)
 
   // 验证当前语言是否支持，如果不支持则使用 'en'
   const validLang = SUPPORTED_LANGUAGES.includes(
