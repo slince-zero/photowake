@@ -64,7 +64,7 @@ export default function HeaderBar() {
           ></span>
           <span
             className={cn(
-              'w-4 h-[2px] bg-black dark:bg-white translate-x-1 transition-transform duration-300 ease-in-out ',
+              'w-4 h-[2px] bg-black dark:bg-white transition-transform duration-300 ease-in-out ',
               isOpen
                 ? '-rotate-45 origin-left translate-x-0'
                 : 'group-hover:translate-x-2'
@@ -164,52 +164,48 @@ export default function HeaderBar() {
 
         <div className='flex-1 flex justify-center'>
           <nav>
-            <ul>
-              <nav>
-                <ul className='flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10'>
-                  <li>
-                    <a
-                      className='relative block px-3 py-2 transition text-cyan-500 dark:text-cyan-400'
-                      href='/'
-                    >
-                      Home
-                      <span className='absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-cyan-500/0 via-cyan-500/40 to-cyan-500/0 dark:from-cyan-400/0 dark:via-cyan-400/40 dark:to-cyan-400/0'></span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      className='relative block px-3 py-2 transition hover:text-cyan-500 dark:hover:text-cyan-400'
-                      href='#'
-                    >
-                      About
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      className='relative block px-3 py-2 transition hover:text-cyan-500 dark:hover:text-cyan-400'
-                      href='#'
-                    >
-                      Articles
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      className='relative block px-3 py-2 transition hover:text-cyan-500 dark:hover:text-cyan-400'
-                      href='#'
-                    >
-                      Projects
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      className='relative block px-3 py-2 transition hover:text-cyan-500 dark:hover:text-cyan-400'
-                      href='#'
-                    >
-                      Uses
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+            <ul className='flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10'>
+              <li>
+                <a
+                  className='relative block px-3 py-2 transition text-cyan-500 dark:text-cyan-400'
+                  href='/'
+                >
+                  Home
+                  <span className='absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-cyan-500/0 via-cyan-500/40 to-cyan-500/0 dark:from-cyan-400/0 dark:via-cyan-400/40 dark:to-cyan-400/0'></span>
+                </a>
+              </li>
+              <li>
+                <a
+                  className='relative block px-3 py-2 transition hover:text-cyan-500 dark:hover:text-cyan-400'
+                  href='#'
+                >
+                  About
+                </a>
+              </li>
+              <li>
+                <a
+                  className='relative block px-3 py-2 transition hover:text-cyan-500 dark:hover:text-cyan-400'
+                  href='#'
+                >
+                  Articles
+                </a>
+              </li>
+              <li>
+                <a
+                  className='relative block px-3 py-2 transition hover:text-cyan-500 dark:hover:text-cyan-400'
+                  href='#'
+                >
+                  Projects
+                </a>
+              </li>
+              <li>
+                <a
+                  className='relative block px-3 py-2 transition hover:text-cyan-500 dark:hover:text-cyan-400'
+                  href='#'
+                >
+                  Uses
+                </a>
+              </li>
             </ul>
           </nav>
         </div>

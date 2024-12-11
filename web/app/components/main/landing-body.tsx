@@ -51,13 +51,22 @@ export default function LandingBody() {
         </div>
       </div>
     ),
-    
+
     Face: (
       <div className='space-y-6'>
         <div className='space-y-2'>
-          <label className='text-sm text-gray-600 dark:text-gray-400'>Skin Tone</label>
+          <label className='text-sm text-gray-600 dark:text-gray-400'>
+            Skin Tone
+          </label>
           <div className='flex gap-2'>
-            {['#FFDBB4', '#EDB98A', '#D08B5B', '#AE5D29', '#694D3D', '#452B1F'].map((color) => (
+            {[
+              '#FFDBB4',
+              '#EDB98A',
+              '#D08B5B',
+              '#AE5D29',
+              '#694D3D',
+              '#452B1F',
+            ].map((color) => (
               <button
                 key={color}
                 className='w-8 h-8 rounded-full border-2 border-white dark:border-zinc-700 hover:scale-110 transition-transform'
@@ -67,7 +76,9 @@ export default function LandingBody() {
           </div>
         </div>
         <div className='space-y-2'>
-          <label className='text-sm text-gray-600 dark:text-gray-400'>Face Shape</label>
+          <label className='text-sm text-gray-600 dark:text-gray-400'>
+            Face Shape
+          </label>
           <div className='grid grid-cols-2 gap-2'>
             {['Round', 'Oval', 'Square', 'Heart'].map((shape) => (
               <button
@@ -85,22 +96,35 @@ export default function LandingBody() {
     Hair: (
       <div className='space-y-6'>
         <div className='space-y-2'>
-          <label className='text-sm text-gray-600 dark:text-gray-400'>Hair Style</label>
+          <label className='text-sm text-gray-600 dark:text-gray-400'>
+            Hair Style
+          </label>
           <div className='grid grid-cols-2 gap-2'>
-            {['Short', 'Long', 'Curly', 'Wavy', 'Straight', 'Bald'].map((style) => (
-              <button
-                key={style}
-                className='px-3 py-2 text-sm rounded-lg bg-purple-50 dark:bg-zinc-800 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-zinc-700 transition-colors'
-              >
-                {style}
-              </button>
-            ))}
+            {['Short', 'Long', 'Curly', 'Wavy', 'Straight', 'Bald'].map(
+              (style) => (
+                <button
+                  key={style}
+                  className='px-3 py-2 text-sm rounded-lg bg-purple-50 dark:bg-zinc-800 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-zinc-700 transition-colors'
+                >
+                  {style}
+                </button>
+              )
+            )}
           </div>
         </div>
         <div className='space-y-2'>
-          <label className='text-sm text-gray-600 dark:text-gray-400'>Hair Color</label>
+          <label className='text-sm text-gray-600 dark:text-gray-400'>
+            Hair Color
+          </label>
           <div className='flex gap-2'>
-            {['#000000', '#4A3319', '#B87A3D', '#F2C035', '#FFF345', '#FF0000'].map((color) => (
+            {[
+              '#000000',
+              '#4A3319',
+              '#B87A3D',
+              '#F2C035',
+              '#FFF345',
+              '#FF0000',
+            ].map((color) => (
               <button
                 key={color}
                 className='w-8 h-8 rounded-full border-2 border-white dark:border-zinc-700 hover:scale-110 transition-transform'
@@ -115,9 +139,18 @@ export default function LandingBody() {
     Eyes: (
       <div className='space-y-6'>
         <div className='space-y-2'>
-          <label className='text-sm text-gray-600 dark:text-gray-400'>Eye Shape</label>
+          <label className='text-sm text-gray-600 dark:text-gray-400'>
+            Eye Shape
+          </label>
           <div className='grid grid-cols-2 gap-2'>
-            {['Round', 'Almond', 'Upturned', 'Downturned', 'Hooded', 'Wide'].map((shape) => (
+            {[
+              'Round',
+              'Almond',
+              'Upturned',
+              'Downturned',
+              'Hooded',
+              'Wide',
+            ].map((shape) => (
               <button
                 key={shape}
                 className='px-3 py-2 text-sm rounded-lg bg-purple-50 dark:bg-zinc-800 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-zinc-700 transition-colors'
@@ -128,15 +161,19 @@ export default function LandingBody() {
           </div>
         </div>
         <div className='space-y-2'>
-          <label className='text-sm text-gray-600 dark:text-gray-400'>Eye Color</label>
+          <label className='text-sm text-gray-600 dark:text-gray-400'>
+            Eye Color
+          </label>
           <div className='flex gap-2'>
-            {['#4B3621', '#82B5C3', '#86C14F', '#B5A642', '#702963'].map((color) => (
-              <button
-                key={color}
-                className='w-8 h-8 rounded-full border-2 border-white dark:border-zinc-700 hover:scale-110 transition-transform'
-                style={{ backgroundColor: color }}
-              />
-            ))}
+            {['#4B3621', '#82B5C3', '#86C14F', '#B5A642', '#702963'].map(
+              (color) => (
+                <button
+                  key={color}
+                  className='w-8 h-8 rounded-full border-2 border-white dark:border-zinc-700 hover:scale-110 transition-transform'
+                  style={{ backgroundColor: color }}
+                />
+              )
+            )}
           </div>
         </div>
       </div>
@@ -145,7 +182,9 @@ export default function LandingBody() {
     Accessories: (
       <div className='space-y-6'>
         <div className='space-y-2'>
-          <label className='text-sm text-gray-600 dark:text-gray-400'>Glasses</label>
+          <label className='text-sm text-gray-600 dark:text-gray-400'>
+            Glasses
+          </label>
           <div className='grid grid-cols-2 gap-2'>
             {['None', 'Round', 'Square', 'Oval'].map((type) => (
               <button
@@ -158,7 +197,9 @@ export default function LandingBody() {
           </div>
         </div>
         <div className='space-y-2'>
-          <label className='text-sm text-gray-600 dark:text-gray-400'>Other</label>
+          <label className='text-sm text-gray-600 dark:text-gray-400'>
+            Other
+          </label>
           <div className='grid grid-cols-2 gap-2'>
             {['Earrings', 'Necklace', 'Hat', 'None'].map((item) => (
               <button
@@ -261,12 +302,12 @@ export default function LandingBody() {
           Magical Avatar
         </h2>
 
-        <div className='w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8'>
+        <div className='w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8 mt-8'>
           {/* Preview Area */}
-          <div className="relative">
-            <canvas 
-              ref={confettiRef} 
-              className="absolute inset-0 w-full h-full z-10" 
+          <div className='relative'>
+            <canvas
+              ref={confettiRef}
+              className='absolute inset-0 w-full h-full z-10'
             />
             <div className='bg-white dark:bg-zinc-900 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-zinc-800'>
               <div className='aspect-square w-full bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-xl flex items-center justify-center'>
@@ -280,7 +321,7 @@ export default function LandingBody() {
           <div className='bg-white dark:bg-zinc-900 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-zinc-800'>
             <div className='flex flex-col h-full'>
               {/* Tabs */}
-              <div className='flex space-x-4 border-b border-gray-200 dark:border-zinc-700 mb-6'>
+              <div className='flex space-x-4 border-b border-gray-200 dark:border-zinc-700 mb-6 scrollbar-hide overflow-x-scroll overflow-y-hidden'>
                 {Object.keys(TabContent).map((tab) => (
                   <button
                     key={tab}
