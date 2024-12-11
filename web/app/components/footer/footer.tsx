@@ -2,12 +2,12 @@ const Footer = () => {
   return (
     <div className='container mx-auto h-full flex flex-col items-center justify-center gap-2'>
       <div className='flex items-center gap-8 text-gray-600'>
-        <a href='#' className='hover:text-gray-900 transition-colors'>
+        <a href='#' className='hover:text-gray-900 dark:hover:text-gray-100 transition-colors'>
           License
         </a>
         <a
           href='https://github.com/slince-zero/PhotoWake'
-          className='hover:text-gray-900 transition-colors flex items-center gap-1'
+          className='hover:text-gray-900 dark:hover:text-gray-100 transition-colors flex items-center gap-1'
           target='_blank'
         >
           GitHub
