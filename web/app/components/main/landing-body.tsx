@@ -1,6 +1,32 @@
+'use client'
+
 import ReviewCard from './review-card'
 import { Check } from 'lucide-react'
+import JSConfetti from 'js-confetti'
+import { useRef } from 'react'
+
 export default function LandingBody() {
+  const confettiRef = useRef<HTMLCanvasElement>(null)
+
+  const handleCreateAvatar = () => {
+    if (confettiRef.current) {
+      const canvas = confettiRef.current
+      const jsConfetti = new JSConfetti({ canvas })
+      jsConfetti.addConfetti({
+        confettiColors: [
+          '#ff0000',
+          '#ffa500',
+          '#ffff00',
+          '#008000',
+          '#0000ff',
+          '#4b0082',
+          '#ee82ee',
+        ],
+        confettiNumber: 100,
+      })
+    }
+  }
+
   return (
     <>
       <section className='flex flex-col items-center gap-8 py-12 px-4'>
@@ -90,10 +116,16 @@ export default function LandingBody() {
 
         <div className='w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8'>
           {/* Preview Area */}
-          <div className='bg-white dark:bg-zinc-900 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-zinc-800'>
-            <div className='aspect-square w-full bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-xl flex items-center justify-center'>
-              {/* Placeholder for avatar preview */}
-              <div className='w-48 h-48 bg-gray-200 dark:bg-zinc-800 rounded-full animate-pulse'></div>
+          <div className="relative">
+            <canvas 
+              ref={confettiRef} 
+              className="absolute inset-0 w-full h-full z-10" 
+            />
+            <div className='bg-white dark:bg-zinc-900 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-zinc-800'>
+              <div className='aspect-square w-full bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-xl flex items-center justify-center'>
+                {/* Placeholder for avatar preview */}
+                <div className='w-48 h-48 bg-gray-200 dark:bg-zinc-800 rounded-full animate-pulse'></div>
+              </div>
             </div>
           </div>
 
@@ -128,7 +160,10 @@ export default function LandingBody() {
                 <h3 className='text-xl font-semibold text-gray-800 dark:text-gray-200'>
                   Generate
                 </h3>
-                <button className='w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:opacity-90 transition-opacity'>
+                <button
+                  className='w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:opacity-90 transition-opacity'
+                  onClick={handleCreateAvatar}
+                >
                   Create Avatar
                 </button>
               </div>
