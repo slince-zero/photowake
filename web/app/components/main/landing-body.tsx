@@ -9,7 +9,7 @@ export default function LandingBody() {
             {/* 创造独特的数字头像 */}
             Create Your Unique
           </h1>
-          <span className='text-5xl min-h-[70px] md:text-6xl font-bold text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent inline-block overflow-hidden w-0 animate-typing whitespace-nowrap border-r-4 border-r-purple-600 [--typing-width:11ch] pb-2 leading-tight'>
+          <span className='text-4xl md:min-h-[70px] max-h-[60px] md:text-6xl font-bold text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent inline-block overflow-hidden w-0 animate-typing whitespace-nowrap border-r-4 border-r-purple-600 [--typing-width:11ch] pb-2 leading-tight'>
             Digital Avatar
           </span>
         </div>
