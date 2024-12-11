@@ -8,9 +8,6 @@ export default function Home() {
       </header>
       <main className='mx-auto mt-24'>
         <LandingBody />
-        <LandingBody />
-        <LandingBody />
-        <LandingBody />
       </main>
     </div>
   )
