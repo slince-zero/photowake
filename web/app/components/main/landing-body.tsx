@@ -3,10 +3,11 @@
 import ReviewCard from './review-card'
 import { Check } from 'lucide-react'
 import JSConfetti from 'js-confetti'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 export default function LandingBody() {
   const confettiRef = useRef<HTMLCanvasElement>(null)
+  const [activeTab, setActiveTab] = useState('Style')
 
   const handleCreateAvatar = () => {
     if (confettiRef.current) {
@@ -25,6 +26,152 @@ export default function LandingBody() {
         confettiNumber: 100,
       })
     }
+  }
+
+  // Tab content components
+  const TabContent = {
+    Style: (
+      <div className='space-y-6'>
+        <div className='grid grid-cols-2 sm:grid-cols-3 gap-4'>
+          {[
+            'Anime',
+            'Realistic',
+            'Cartoon',
+            'Pixel Art',
+            'Sketch',
+            'Paint',
+          ].map((style) => (
+            <button
+              key={style}
+              className='px-4 py-2 rounded-lg bg-purple-50 dark:bg-zinc-800 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-zinc-700 transition-colors'
+            >
+              {style}
+            </button>
+          ))}
+        </div>
+      </div>
+    ),
+    
+    Face: (
+      <div className='space-y-6'>
+        <div className='space-y-2'>
+          <label className='text-sm text-gray-600 dark:text-gray-400'>Skin Tone</label>
+          <div className='flex gap-2'>
+            {['#FFDBB4', '#EDB98A', '#D08B5B', '#AE5D29', '#694D3D', '#452B1F'].map((color) => (
+              <button
+                key={color}
+                className='w-8 h-8 rounded-full border-2 border-white dark:border-zinc-700 hover:scale-110 transition-transform'
+                style={{ backgroundColor: color }}
+              />
+            ))}
+          </div>
+        </div>
+        <div className='space-y-2'>
+          <label className='text-sm text-gray-600 dark:text-gray-400'>Face Shape</label>
+          <div className='grid grid-cols-2 gap-2'>
+            {['Round', 'Oval', 'Square', 'Heart'].map((shape) => (
+              <button
+                key={shape}
+                className='px-3 py-2 text-sm rounded-lg bg-purple-50 dark:bg-zinc-800 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-zinc-700 transition-colors'
+              >
+                {shape}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    ),
+
+    Hair: (
+      <div className='space-y-6'>
+        <div className='space-y-2'>
+          <label className='text-sm text-gray-600 dark:text-gray-400'>Hair Style</label>
+          <div className='grid grid-cols-2 gap-2'>
+            {['Short', 'Long', 'Curly', 'Wavy', 'Straight', 'Bald'].map((style) => (
+              <button
+                key={style}
+                className='px-3 py-2 text-sm rounded-lg bg-purple-50 dark:bg-zinc-800 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-zinc-700 transition-colors'
+              >
+                {style}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className='space-y-2'>
+          <label className='text-sm text-gray-600 dark:text-gray-400'>Hair Color</label>
+          <div className='flex gap-2'>
+            {['#000000', '#4A3319', '#B87A3D', '#F2C035', '#FFF345', '#FF0000'].map((color) => (
+              <button
+                key={color}
+                className='w-8 h-8 rounded-full border-2 border-white dark:border-zinc-700 hover:scale-110 transition-transform'
+                style={{ backgroundColor: color }}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    ),
+
+    Eyes: (
+      <div className='space-y-6'>
+        <div className='space-y-2'>
+          <label className='text-sm text-gray-600 dark:text-gray-400'>Eye Shape</label>
+          <div className='grid grid-cols-2 gap-2'>
+            {['Round', 'Almond', 'Upturned', 'Downturned', 'Hooded', 'Wide'].map((shape) => (
+              <button
+                key={shape}
+                className='px-3 py-2 text-sm rounded-lg bg-purple-50 dark:bg-zinc-800 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-zinc-700 transition-colors'
+              >
+                {shape}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className='space-y-2'>
+          <label className='text-sm text-gray-600 dark:text-gray-400'>Eye Color</label>
+          <div className='flex gap-2'>
+            {['#4B3621', '#82B5C3', '#86C14F', '#B5A642', '#702963'].map((color) => (
+              <button
+                key={color}
+                className='w-8 h-8 rounded-full border-2 border-white dark:border-zinc-700 hover:scale-110 transition-transform'
+                style={{ backgroundColor: color }}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    ),
+
+    Accessories: (
+      <div className='space-y-6'>
+        <div className='space-y-2'>
+          <label className='text-sm text-gray-600 dark:text-gray-400'>Glasses</label>
+          <div className='grid grid-cols-2 gap-2'>
+            {['None', 'Round', 'Square', 'Oval'].map((type) => (
+              <button
+                key={type}
+                className='px-3 py-2 text-sm rounded-lg bg-purple-50 dark:bg-zinc-800 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-zinc-700 transition-colors'
+              >
+                {type}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className='space-y-2'>
+          <label className='text-sm text-gray-600 dark:text-gray-400'>Other</label>
+          <div className='grid grid-cols-2 gap-2'>
+            {['Earrings', 'Necklace', 'Hat', 'None'].map((item) => (
+              <button
+                key={item}
+                className='px-3 py-2 text-sm rounded-lg bg-purple-50 dark:bg-zinc-800 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-zinc-700 transition-colors'
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    ),
   }
 
   return (
@@ -131,35 +278,31 @@ export default function LandingBody() {
 
           {/* Control Panel */}
           <div className='bg-white dark:bg-zinc-900 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-zinc-800'>
-            <div className='space-y-6'>
-              <div className='space-y-4'>
-                <h3 className='text-xl font-semibold text-gray-800 dark:text-gray-200'>
-                  Style Options
-                </h3>
-                <div className='grid grid-cols-2 sm:grid-cols-3 gap-4'>
-                  {/* Style option buttons */}
-                  {[
-                    'Anime',
-                    'Realistic',
-                    'Cartoon',
-                    'Pixel Art',
-                    'Sketch',
-                    'Paint',
-                  ].map((style) => (
-                    <button
-                      key={style}
-                      className='px-4 py-2 rounded-lg bg-purple-50 dark:bg-zinc-800 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-zinc-700 transition-colors'
-                    >
-                      {style}
-                    </button>
-                  ))}
-                </div>
+            <div className='flex flex-col h-full'>
+              {/* Tabs */}
+              <div className='flex space-x-4 border-b border-gray-200 dark:border-zinc-700 mb-6'>
+                {Object.keys(TabContent).map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors -mb-[2px] ${
+                      activeTab === tab
+                        ? 'text-purple-600 border-purple-600'
+                        : 'text-gray-600 dark:text-gray-400 border-transparent hover:text-purple-600 hover:border-purple-600'
+                    }`}
+                  >
+                    {tab}
+                  </button>
+                ))}
               </div>
 
-              <div className='space-y-4'>
-                <h3 className='text-xl font-semibold text-gray-800 dark:text-gray-200'>
-                  Generate
-                </h3>
+              {/* Tab Content Area */}
+              <div className='flex-1 overflow-y-auto'>
+                {TabContent[activeTab as keyof typeof TabContent]}
+              </div>
+
+              {/* Generate Button */}
+              <div className='pt-6 mt-auto'>
                 <button
                   className='w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:opacity-90 transition-opacity'
                   onClick={handleCreateAvatar}
