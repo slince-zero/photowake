@@ -134,8 +134,8 @@ export default function HeaderBar() {
                     'absolute top-[0.5px] left-[1px] flex items-center justify-center w-5 h-5 bg-white dark:bg-zinc-700 rounded-full ',
                     // 切换主题时，状态更新不同步
                     resolvedTheme === 'dark'
-                      ? 'translate-x-6 transition-all duration-200 ease-in-out'
-                      : 'translate-x-0 transition-all duration-200 ease-in-out'
+                      ? 'translate-x-6 transition-all duration-300 ease-in-out'
+                      : 'translate-x-0 transition-all duration-300 ease-in-out'
                   )}
                 >
                   <span className='absolute left-[1px] top-[1px] flex items-center justify-center w-5 h-5 bg-white dark:bg-zinc-700 rounded-full transition-all duration-300'>
