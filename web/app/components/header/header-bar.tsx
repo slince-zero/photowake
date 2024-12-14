@@ -6,6 +6,7 @@ import { LanguageToggle } from './language-toggle'
 import cn from 'classnames'
 import { MoonStar, Sun, Github } from 'lucide-react'
 import { useTheme } from 'next-themes'
+import { getTest } from '@/app/api/test'
 
 export default function HeaderBar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -33,6 +34,12 @@ export default function HeaderBar() {
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [isOpen])
+
+  const handleTest = async () => {
+    const data = await getTest()
+    console.log(data)
+  }
+
   return (
     <>
       {/* 移动端导航栏 */}
@@ -160,7 +167,9 @@ export default function HeaderBar() {
       {/* PC 导航栏 */}
       <div className='hidden md:flex w-full max-w-6xl mx-auto mt-4 px-6 items-center fixed left-1/2 -translate-x-1/2'>
         {/* Logo 区域 */}
-        <div className='w-32'></div>
+        <div className='w-32'>
+          <button onClick={handleTest}>Test</button>
+        </div>
 
         <div className='flex-1 flex justify-center'>
           <nav>
