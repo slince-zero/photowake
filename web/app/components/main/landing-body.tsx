@@ -233,7 +233,7 @@ export default function LandingBody() {
           Add vibrant colors to express your unique style.
         </p>
 
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-8 mt-12'>
+        <div className='grid grid-cols-1 max-w-6xl md:grid-cols-2 gap-8 mt-12'>
           <div className='group bg-white dark:bg-zinc-900 p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-zinc-800 hover:border-purple-200'>
             <div className='flex items-center gap-4 mb-6'>
               <div className='p-3 bg-gradient-to-br from-purple-100 to-pink-50 dark:from-purple-900 dark:to-pink-900 rounded-xl'>
@@ -376,6 +376,10 @@ export default function LandingBody() {
                 <Check className='w-5 h-5 text-green-500' />
                 Basic styles
               </li>
+              <li className='flex items-center gap-2 text-gray-600 dark:text-gray-400'>
+                <Check className='w-5 h-5 text-green-500' />
+                Access to all styles
+              </li>
             </ul>
             <button className='w-full py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-colors'>
               Get Started
@@ -444,6 +448,108 @@ export default function LandingBody() {
         <div className='w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
           <ReviewCard />
         </div>
+      </section>
+
+      <section className='flex flex-col items-center gap-8 py-12 px-4'>
+        <h2 className='text-4xl font-bold text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent pb-[1px]'>
+          Terms of Service
+        </h2>
+
+        <div className='w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-6'>
+          {/* Privacy & Security */}
+          <div className='bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-md border border-gray-100 dark:border-zinc-800'>
+            <h3 className='text-xl font-semibold text-purple-600 dark:text-purple-400 mb-4'>
+              Privacy & Security
+            </h3>
+            <ul className='space-y-3 text-gray-600 dark:text-gray-400'>
+              <li className='flex items-start gap-2'>
+                <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
+                <span>Your data is encrypted and securely stored</span>
+              </li>
+              <li className='flex items-start gap-2'>
+                <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
+                <span>
+                  We never share your personal information with third parties
+                </span>
+              </li>
+              <li className='flex items-start gap-2'>
+                <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
+                <span>You maintain full ownership of your created avatars</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Usage Rights */}
+          <div className='bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-md border border-gray-100 dark:border-zinc-800'>
+            <h3 className='text-xl font-semibold text-purple-600 dark:text-purple-400 mb-4'>
+              Usage Rights
+            </h3>
+            <ul className='space-y-3 text-gray-600 dark:text-gray-400'>
+              <li className='flex items-start gap-2'>
+                <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
+                <span>
+                  Commercial use allowed with Pro and Enterprise plans
+                </span>
+              </li>
+              <li className='flex items-start gap-2'>
+                <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
+                <span>Attribution not required for personal use</span>
+              </li>
+              <li className='flex items-start gap-2'>
+                <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
+                <span>Unlimited modifications to your generated avatars</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Service Limitations */}
+          <div className='bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-md border border-gray-100 dark:border-zinc-800'>
+            <h3 className='text-xl font-semibold text-purple-600 dark:text-purple-400 mb-4'>
+              Service Limitations
+            </h3>
+            <ul className='space-y-3 text-gray-600 dark:text-gray-400'>
+              <li className='flex items-start gap-2'>
+                <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
+                <span>Fair usage policy applies to all plans</span>
+              </li>
+              <li className='flex items-start gap-2'>
+                <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
+                <span>Generation limits based on subscription tier</span>
+              </li>
+              <li className='flex items-start gap-2'>
+                <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
+                <span>Service availability subject to maintenance windows</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Account Terms */}
+          <div className='bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-md border border-gray-100 dark:border-zinc-800'>
+            <h3 className='text-xl font-semibold text-purple-600 dark:text-purple-400 mb-4'>
+              Account Terms
+            </h3>
+            <ul className='space-y-3 text-gray-600 dark:text-gray-400'>
+              <li className='flex items-start gap-2'>
+                <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
+                <span>One account per user required</span>
+              </li>
+              <li className='flex items-start gap-2'>
+                <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
+                <span>Account sharing is not permitted</span>
+              </li>
+              <li className='flex items-start gap-2'>
+                <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
+                <span>Age restriction: 18 years or older</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <p className='text-sm text-gray-500 dark:text-gray-400 max-w-2xl text-center mt-6'>
+          {/* By using our service, you agree to these terms and conditions. We
+          reserve the right to modify these terms at any time. Please review
+          them periodically for changes. */}
+        </p>
       </section>
     </>
   )
