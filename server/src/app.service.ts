@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { clerkClient } from '@clerk/express';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
+  async getUsers(): Promise<any> {
+    return clerkClient.users.getUserList();
   }
 }
