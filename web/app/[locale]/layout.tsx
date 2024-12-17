@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
-import { inter } from './utils/font'
-import './globals.css'
-import { Providers, ClerkProviderWithTheme } from './providers'
+import '@/app/globals.css'
 import { getMessages } from 'next-intl/server'
 import { NextIntlClientProvider } from 'next-intl'
+import { ClerkProviderWithTheme, Providers } from '../providers'
+import { inter } from '../utils/font'
 
 export const metadata: Metadata = {
   title: 'Photo Wake',
@@ -12,13 +12,16 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode
+  params: { locale: string }
 }>) {
+  const locale = await params.locale
   const messages = await getMessages()
 
   return (
-    <html lang='en' className='h-full' suppressHydrationWarning>
+    <html lang={locale} className='h-full' suppressHydrationWarning>
       <body
         className={`${inter.className} antialiased h-full bg-white dark:bg-zinc-900`}
       >

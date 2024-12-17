@@ -5,11 +5,11 @@ export const routing = defineRouting({
   // A list of all locales that are supported
   locales: ['en', 'zh'],
 
-  // Used when no locale matches
-  defaultLocale: 'en',
-
   // 添加这个配置来防止自动重定向
   localePrefix: 'as-needed',
+
+  // Used when no locale matches
+  defaultLocale: 'zh',
 })
 
 // Lightweight wrappers around Next.js' navigation APIs
