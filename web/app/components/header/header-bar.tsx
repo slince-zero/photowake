@@ -179,9 +179,21 @@ export default function HeaderBar() {
         {/* Logo 区域 */}
         <div className='flex items-center gap-2'>
           {resolvedTheme === 'dark' ? (
-            <Image src='/logo-dark.png' alt='Logo' width={100} height={100} />
+            <Image
+              src='/logo-dark.png'
+              alt='Logo'
+              width={100}
+              height={100}
+              style={{ height: 'auto', width: 'auto' }}
+            />
           ) : (
-            <Image src='/logo-white.png' alt='Logo' width={100} height={100} />
+            <Image
+              src='/logo-white.png'
+              alt='Logo'
+              width={100}
+              height={100}
+              style={{ height: 'auto', width: 'auto' }}
+            />
           )}
         </div>
 
