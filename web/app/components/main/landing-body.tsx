@@ -223,16 +223,16 @@ export default function LandingBody() {
         <div className='flex flex-wrap gap-4 items-center justify-center'>
           <h1 className='text-5xl min-h-[70px] md:text-6xl font-bold text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent'>
             {/* 创造独特的数字头像 */}
-            Create Your Unique
+            {t('Create Your Unique')}
           </h1>
           <span className='text-4xl md:min-h-[70px] max-h-[60px] md:text-6xl font-bold text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent inline-block overflow-hidden w-0 animate-typing whitespace-nowrap border-r-4 border-r-purple-600 [--typing-width:10.4ch] pb-2 leading-tight'>
-            Digital Avatar
+            {t('Digital Avatar')}
           </span>
         </div>
 
         <p className='text-xl text-center max-w-2xl bg-gradient-to-r from-purple-500/80 to-pink-500/80 bg-clip-text text-transparent font-medium'>
-          Design your personalized avatar with our AI-powered avatar generator.
-          Add vibrant colors to express your unique style.
+          {t('Design your personalized')}
+          {t('Add vibrant colors')}
         </p>
 
         <div className='grid grid-cols-1 max-w-6xl md:grid-cols-2 gap-8 mt-12'>
@@ -259,8 +259,7 @@ export default function LandingBody() {
               </h2>
             </div>
             <p className='text-gray-600 leading-relaxed'>
-              Create your unique digital persona in seconds. Multiple styles
-              available to make your avatar stand out.
+              {t('Create your unique digital')}
             </p>
           </div>
 
@@ -283,25 +282,23 @@ export default function LandingBody() {
                 </svg>
               </div>
               <h2 className='text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600  bg-clip-text text-transparent'>
-                Personalized Coloring
+                {t('Personalized Coloring')}
               </h2>
             </div>
             <p className='text-gray-600 leading-relaxed'>
-              Express your creativity by adding unique colors to your avatar.
-              Rich color palette for unlimited creative freedom.
+              {t('Express your creativity')}
             </p>
           </div>
         </div>
 
         <button className='mt-8 px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full text-xl font-semibold hover:opacity-90 transition-opacity'>
-          {/* 开始创作 */}
-          Start Creating
+          {t('Start Creating')}
         </button>
       </section>
 
       <section className='flex flex-col items-center gap-8 py-12 px-4 bg-gradient-to-b from-purple-50 to-pink-50 dark:from-zinc-950 dark:to-zinc-900'>
         <h2 className='text-4xl font-bold text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent pb-[1px]'>
-          Magical Avatar
+          {t('Magical Avatar')} 
         </h2>
 
         <div className='w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8 mt-8'>
@@ -350,7 +347,7 @@ export default function LandingBody() {
                   className='w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:opacity-90 transition-opacity'
                   onClick={handleCreateAvatar}
                 >
-                  Create Avatar
+                  {t('Create Avatar')}
                 </button>
               </div>
             </div>
@@ -360,83 +357,83 @@ export default function LandingBody() {
 
       <section className='flex flex-col items-center gap-8 py-12 px-4'>
         <h2 className='text-4xl font-bold text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent pb-[1px]'>
-          Pricing Plans
+          {t('Pricing Plans')}
         </h2>
 
         <div className='w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
           {/* Free Plan */}
           <div className='bg-white dark:bg-zinc-900 p-8 rounded-2xl shadow-md border border-gray-100 dark:border-zinc-800 hover:border-purple-200 transition-all duration-300'>
             <h3 className='text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4'>
-              Free
+              {t('Free')}
             </h3>
             <p className='text-4xl font-bold text-purple-600 mb-6'>$0</p>
             <ul className='space-y-3 mb-8'>
               <li className='flex items-center gap-2 text-gray-600 dark:text-gray-400'>
-                <Check className='w-5 h-5 text-green-500' />5 Avatars per month
+                <Check className='w-5 h-5 text-green-500' />{t('5 Avatars per month')}    
               </li>
               <li className='flex items-center gap-2 text-gray-600 dark:text-gray-400'>
                 <Check className='w-5 h-5 text-green-500' />
-                Basic styles
+                {t('Basic styles')}
               </li>
               <li className='flex items-center gap-2 text-gray-600 dark:text-gray-400'>
                 <Check className='w-5 h-5 text-green-500' />
-                Access to all styles
+                {t('Access to all styles')}
               </li>
             </ul>
             <button className='w-full py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-colors'>
-              Get Started
+              {t('Get Started')}
             </button>
           </div>
 
           {/* Pro Plan */}
           <div className='bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 p-8 rounded-2xl shadow-md border border-purple-200 dark:border-purple-800 hover:border-purple-300 transition-all duration-300'>
             <h3 className='text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4'>
-              Pro
+              {t('Pro')}
             </h3>
             <p className='text-4xl font-bold text-purple-600 mb-6'>
-              $9.99<span className='text-base font-normal'>/month</span>
+              $9.99<span className='text-base font-normal'>/{t('month')}</span>
             </p>
             <ul className='space-y-3 mb-8'>
               <li className='flex items-center gap-2 text-gray-600 dark:text-gray-400'>
                 <Check className='w-5 h-5 text-green-500' />
-                Unlimited avatars
+                {t('Unlimited avatars')}
               </li>
               <li className='flex items-center gap-2 text-gray-600 dark:text-gray-400'>
                 <Check className='w-5 h-5 text-green-500' />
-                All styles included
+                {t('All styles included')}
               </li>
               <li className='flex items-center gap-2 text-gray-600 dark:text-gray-400'>
                 <Check className='w-5 h-5 text-green-500' />
-                Priority generation
+                {t('Priority generation')}
               </li>
             </ul>
             <button className='w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:opacity-90 transition-opacity'>
-              Upgrade to Pro
+              {t('Upgrade to Pro')}
             </button>
           </div>
 
           {/* Enterprise Plan */}
           <div className='bg-white dark:bg-zinc-900 p-8 rounded-2xl shadow-md border border-gray-100 dark:border-zinc-800 hover:border-purple-200 transition-all duration-300'>
             <h3 className='text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4'>
-              Enterprise
+              {t('Enterprise')}
             </h3>
-            <p className='text-4xl font-bold text-purple-600 mb-6'>Custom</p>
+            <p className='text-4xl font-bold text-purple-600 mb-6'>{t('Custom')}</p>
             <ul className='space-y-3 mb-8'>
               <li className='flex items-center gap-2 text-gray-600 dark:text-gray-400'>
                 <Check className='w-5 h-5 text-green-500' />
-                Custom integration
+                {t('Custom integration')}
               </li>
               <li className='flex items-center gap-2 text-gray-600 dark:text-gray-400'>
                 <Check className='w-5 h-5 text-green-500' />
-                Dedicated support
+                {t('Dedicated support')}
               </li>
               <li className='flex items-center gap-2 text-gray-600 dark:text-gray-400'>
                 <Check className='w-5 h-5 text-green-500' />
-                SLA guarantee
+                {t('SLA guarantee')}
               </li>
             </ul>
             <button className='w-full py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-colors'>
-              Contact Sales
+              {t('Contact Sales')}
             </button>
           </div>
         </div>
@@ -444,7 +441,7 @@ export default function LandingBody() {
 
       <section className='flex flex-col items-center gap-8 py-12 px-4'>
         <h2 className='text-4xl font-bold text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent pb-[1px]'>
-          User Reviews
+          {t('User Reviews')}
         </h2>
 
         <div className='w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
@@ -454,29 +451,29 @@ export default function LandingBody() {
 
       <section className='flex flex-col items-center gap-8 py-12 px-4'>
         <h2 className='text-4xl font-bold text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent pb-[1px]'>
-          Terms of Service
+          {t('Terms of Service')}
         </h2>
 
         <div className='w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-6'>
           {/* Privacy & Security */}
           <div className='bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-md border border-gray-100 dark:border-zinc-800'>
             <h3 className='text-xl font-semibold text-purple-600 dark:text-purple-400 mb-4'>
-              Privacy & Security
+              {t('Privacy & Security')}
             </h3>
             <ul className='space-y-3 text-gray-600 dark:text-gray-400'>
               <li className='flex items-start gap-2'>
                 <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
-                <span>Your data is encrypted and securely stored</span>
+                <span>{t('Your data is encrypted and securely stored')}</span>
               </li>
               <li className='flex items-start gap-2'>
                 <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
                 <span>
-                  We never share your personal information with third parties
+                  {t('We never share your personal information with third parties')}
                 </span>
               </li>
               <li className='flex items-start gap-2'>
                 <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
-                <span>You maintain full ownership of your created avatars</span>
+                <span>{t('You maintain full ownership of your created avatars')}</span>
               </li>
             </ul>
           </div>
@@ -484,22 +481,22 @@ export default function LandingBody() {
           {/* Usage Rights */}
           <div className='bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-md border border-gray-100 dark:border-zinc-800'>
             <h3 className='text-xl font-semibold text-purple-600 dark:text-purple-400 mb-4'>
-              Usage Rights
+              {t('Usage Rights')}
             </h3>
             <ul className='space-y-3 text-gray-600 dark:text-gray-400'>
               <li className='flex items-start gap-2'>
                 <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
                 <span>
-                  Commercial use allowed with Pro and Enterprise plans
+                  {t('Commercial use allowed with Pro and Enterprise plans')}
                 </span>
               </li>
               <li className='flex items-start gap-2'>
                 <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
-                <span>Attribution not required for personal use</span>
+                <span>{t('Attribution not required for personal use')}</span>
               </li>
               <li className='flex items-start gap-2'>
                 <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
-                <span>Unlimited modifications to your generated avatars</span>
+                <span>{t('Unlimited modifications to your generated avatars')}</span>
               </li>
             </ul>
           </div>
@@ -507,20 +504,20 @@ export default function LandingBody() {
           {/* Service Limitations */}
           <div className='bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-md border border-gray-100 dark:border-zinc-800'>
             <h3 className='text-xl font-semibold text-purple-600 dark:text-purple-400 mb-4'>
-              Service Limitations
+                {t('Service Limitations')}
             </h3>
             <ul className='space-y-3 text-gray-600 dark:text-gray-400'>
               <li className='flex items-start gap-2'>
                 <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
-                <span>Fair usage policy applies to all plans</span>
+                <span>{t('Fair usage policy applies to all plans')}</span>
               </li>
               <li className='flex items-start gap-2'>
                 <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
-                <span>Generation limits based on subscription tier</span>
+                <span>{t('Generation limits based on subscription tier')}</span>
               </li>
               <li className='flex items-start gap-2'>
                 <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
-                <span>Service availability subject to maintenance windows</span>
+                <span>{t('Service availability subject to maintenance windows')}</span>
               </li>
             </ul>
           </div>
@@ -528,20 +525,20 @@ export default function LandingBody() {
           {/* Account Terms */}
           <div className='bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-md border border-gray-100 dark:border-zinc-800'>
             <h3 className='text-xl font-semibold text-purple-600 dark:text-purple-400 mb-4'>
-              Account Terms
+              {t('Account Terms')}
             </h3>
             <ul className='space-y-3 text-gray-600 dark:text-gray-400'>
               <li className='flex items-start gap-2'>
                 <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
-                <span>One account per user required</span>
+                <span>{t('One account per user required')}</span>
               </li>
               <li className='flex items-start gap-2'>
                 <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
-                <span>Account sharing is not permitted</span>
+                <span>{t('Account sharing is not permitted')}</span>
               </li>
               <li className='flex items-start gap-2'>
                 <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
-                <span>Age restriction: 18 years or older</span>
+                <span>{t('Age restriction: 18 years or older')}</span>
               </li>
             </ul>
           </div>

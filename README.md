@@ -17,3 +17,5 @@ web/app/login/[[...rest]]/page.tsx 是登录页面，用于处理登录和重定
 ```bash
 npx @next/codemod@canary next-async-request-api .
 ```
+
+next-intl 还有一个问题就是键名不能太长，太长了就没法正常翻译
