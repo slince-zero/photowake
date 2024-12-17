@@ -4,10 +4,12 @@ import ReviewCard from './review-card'
 import { Check } from 'lucide-react'
 import JSConfetti from 'js-confetti'
 import { useRef, useState } from 'react'
+import { useTranslations } from 'next-intl'
 
 export default function LandingBody() {
   const confettiRef = useRef<HTMLCanvasElement>(null)
   const [activeTab, setActiveTab] = useState('Style')
+  const t = useTranslations('LandingBody')
 
   const handleCreateAvatar = () => {
     if (confettiRef.current) {
@@ -253,7 +255,7 @@ export default function LandingBody() {
                 </svg>
               </div>
               <h2 className='text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent'>
-                Generate Avatar
+                {t('Generate Avatar')}
               </h2>
             </div>
             <p className='text-gray-600 leading-relaxed'>
