@@ -62,7 +62,6 @@ export function ClerkProviderWithTheme({
   children: React.ReactNode
 }) {
   const { resolvedTheme } = useTheme()
-  console.log(resolvedTheme, 'resolvedTheme')
   return (
     <ClerkProvider
       appearance={{

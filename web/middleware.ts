@@ -1,24 +1,28 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
 import createMiddleware from 'next-intl/middleware'
 import { routing } from './i18n/routing'
 
-export const intlMiddleware = createMiddleware(routing)
-
-const isProtectedRoute = createRouteMatcher(['/:locale/dashboard(.*)'])
-
-export default clerkMiddleware(async (auth, req) => {
-  if (isProtectedRoute(req)) await auth.protect()
-
-  return intlMiddleware(req)
+// 创建 next-intl 中间件
+const intlMiddleware = createMiddleware({
+  locales: routing.locales,
+  defaultLocale: routing.defaultLocale,
+  localePrefix: 'always'
 })
 
+export default async function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname
+  
+  // 从路径中提取语言代码
+  const pathnameLocale = pathname.split('/')[1]
+  // 如果使用了无效的语言代码，重定向到默认语言版本
+  if (pathnameLocale && !routing.locales.includes(pathnameLocale as "en" | "zh")) {
+    const newPathname = pathname.replace(`/${pathnameLocale}`, `/${routing.defaultLocale}`)
+    return NextResponse.redirect(new URL(newPathname, request.url))
+  }
+  return intlMiddleware(request)
+}
+
 export const config = {
-  matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
-    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    // Always run for API routes
-    '/(api|trpc)(.*)',
-    '/',
-    '/(en|zh)/:path*',
-  ],
+  matcher: ['/((?!api|_next|.*\\..*).*)']
 }
