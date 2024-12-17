@@ -16,16 +16,17 @@ export default async function RootLayout(
     params: { locale: string }
   }>
 ) {
-  const { params, children } = props
+  const { children } = props
+  const params = await props.params
+  const { locale } = params
 
   const VALID_LOCALES = ['en', 'zh']
-  const locale = VALID_LOCALES.includes(params.locale) ? params.locale : 'en'
-  console.log('locale', locale)
+  const validLocale = VALID_LOCALES.includes(locale) ? locale : 'en'
 
   const messages = await getMessages()
 
   return (
-    <html lang={locale} className='h-full' suppressHydrationWarning>
+    <html lang={validLocale} className='h-full' suppressHydrationWarning>
       <body
         className={`${inter.className} antialiased h-full bg-white dark:bg-zinc-900`}
       >
