@@ -6,7 +6,7 @@ import { ClerkProviderWithTheme, Providers } from '../providers'
 import { inter } from '../utils/font'
 
 export const metadata: Metadata = {
-  title: 'Photo Wake',
+  title: 'Photo Waker',
   description: 'avator generator',
 }
 

@@ -53,7 +53,12 @@ export default function HeaderBar() {
           isOpen ? 'dark:border-zinc-700' : ''
         )}
       >
-        <Image src='/logo.jpeg' alt='Logo' width={70} height={70} />
+        <div className='flex items-center gap-2'>
+          <Image src='/logo.png' alt='Logo' width={40} height={40} />
+          <span className='text-xs font-semibold from-purple-600 to-pink-600 bg-gradient-to-r bg-clip-text text-transparent'>
+            PhotoWaker
+          </span>
+        </div>
         <button
           className='flex flex-col group items-center justify-center gap-1 overflow-hidden'
           onClick={handleOpenDropdownHaderBar}
@@ -86,12 +91,10 @@ export default function HeaderBar() {
       </div>
 
       {/* 移动端下拉菜单 */}
-      <div 
+      <div
         className={cn(
           'absolute top-14 left-0 w-full h-screen bg-white dark:bg-zinc-900 transition-all duration-300 ease-in-out',
-          isOpen 
-            ? 'opacity-100' 
-            : 'opacity-0 pointer-events-none'
+          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         )}
       >
         <ul className='flex flex-col max-w-[288px] mx-auto p-4 gap-4'>
@@ -164,10 +167,7 @@ export default function HeaderBar() {
             </button>
           </li>
           <li className='flex items-center justify-center'>
-            <a
-              href='https://github.com/slince-zero/PhotoWake'
-              target='_blank'
-            >
+            <a href='https://github.com/slince-zero/PhotoWake' target='_blank'>
               <Github />
             </a>
           </li>
@@ -175,11 +175,14 @@ export default function HeaderBar() {
       </div>
 
       {/* PC 导航栏 */}
-      <div className='hidden md:flex w-full px-6 items-center justify-between'>
+      <div className='hidden md:flex w-full h-16 px-6 items-center justify-between'>
         {/* Logo 区域 */}
         <div className='flex items-center gap-2'>
-          <Image src='/logo.jpeg' alt='Logo' width={100} height={100} />
-          <span className='text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent'>PhotoWake</span>
+          {resolvedTheme === 'dark' ? (
+            <Image src='/logo-dark.png' alt='Logo' width={100} height={100} />
+          ) : (
+            <Image src='/logo-white.png' alt='Logo' width={100} height={100} />
+          )}
         </div>
 
         <div className='items-center gap-4 hidden md:flex'>
