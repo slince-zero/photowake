@@ -6,7 +6,7 @@ import { LanguageToggle } from './language-toggle'
 import cn from 'classnames'
 import { MoonStar, Sun, Github } from 'lucide-react'
 import { useTheme } from 'next-themes'
-// import { getTest } from '@/app/api/test'
+import { getTest } from '@/app/api/test'
 import { useAuth, SignInButton, UserButton } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -40,10 +40,10 @@ export default function HeaderBar() {
     return () => window.removeEventListener('resize', handleResize)
   }, [isOpen])
 
-  // const handleTest = async () => {
-  //   const data = await getTest()
-  //   console.log(data)
-  // }
+  const handleTest = async () => {
+    const data = await getTest()
+    console.log(data)
+  }
 
   return (
     <>
@@ -55,7 +55,13 @@ export default function HeaderBar() {
         )}
       >
         <div className='flex items-center gap-2'>
-          <Image src='/logo.png' alt='Logo' width={40} height={40} />
+          <Image
+            src='/logo.png'
+            alt='Logo'
+            width={40}
+            height={40}
+            onClick={handleTest}
+          />
           <span className='text-xs font-semibold from-purple-600 to-pink-600 bg-gradient-to-r bg-clip-text text-transparent'>
             PhotoWaker
           </span>
