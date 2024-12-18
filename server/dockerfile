@@ -4,7 +4,7 @@ LABEL description="Backend server for avatar generator"
 
 WORKDIR /server
 
-COPY package.json package-lock.json ./
+COPY package.json ./
 
 RUN npm install -g pnpm && pnpm install
 
