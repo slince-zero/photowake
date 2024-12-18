@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  backend:
+    build: .
+    ports:
+      - "3080:3080"
+    env_file:
+      - .env
+    restart: always
+
