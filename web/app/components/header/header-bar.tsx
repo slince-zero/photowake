@@ -100,44 +100,29 @@ export default function HeaderBar() {
       >
         <ul className='flex flex-col max-w-[288px] mx-auto p-4 gap-4'>
           <li className='w-full'>
-            <Link
-              href='/'
-              className='block w-full py-2 border-b dark:border-b-zinc-700'
-            >
+            <span className='block w-full py-2 border-b dark:border-b-zinc-700'>
               Icon
-            </Link>
+            </span>
           </li>
           <li className='w-full'>
-            <Link
-              href='#'
-              className='block w-full py-2 border-b dark:border-b-zinc-700'
-            >
+            <span className='block w-full py-2 border-b dark:border-b-zinc-700'>
               Guide
-            </Link>
+            </span>
           </li>
           <li className='w-full'>
-            <Link
-              href='#'
-              className='block w-full py-2 border-b dark:border-b-zinc-700'
-            >
+            <span className='block w-full py-2 border-b dark:border-b-zinc-700'>
               Packages
-            </Link>
+            </span>
           </li>
           <li className='w-full'>
-            <Link
-              href='#'
-              className='block w-full py-2 border-b dark:border-b-zinc-700'
-            >
+            <span className='block w-full py-2 border-b dark:border-b-zinc-700'>
               Showcase
-            </Link>
+            </span>
           </li>
           <li className='w-full'>
-            <Link
-              href='#'
-              className='block w-full py-2 border-b dark:border-b-zinc-700'
-            >
+            <span className='block w-full py-2 border-b dark:border-b-zinc-700'>
               License
-            </Link>
+            </span>
           </li>
           <li className='flex justify-between items-center w-full mt-4 px-4 py-4 bg-gray-100 dark:bg-zinc-800 rounded'>
             <p className='text-sm text-gray-500'>Appearance</p>
