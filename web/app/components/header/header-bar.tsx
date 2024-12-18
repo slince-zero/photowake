@@ -9,6 +9,7 @@ import { useTheme } from 'next-themes'
 // import { getTest } from '@/app/api/test'
 import { useAuth, SignInButton, UserButton } from '@clerk/nextjs'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function HeaderBar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -99,44 +100,44 @@ export default function HeaderBar() {
       >
         <ul className='flex flex-col max-w-[288px] mx-auto p-4 gap-4'>
           <li className='w-full'>
-            <a
+            <Link
               href='/'
               className='block w-full py-2 border-b dark:border-b-zinc-700'
             >
               Icon
-            </a>
+            </Link>
           </li>
           <li className='w-full'>
-            <a
+            <Link
               href='#'
               className='block w-full py-2 border-b dark:border-b-zinc-700'
             >
               Guide
-            </a>
+            </Link>
           </li>
           <li className='w-full'>
-            <a
+            <Link
               href='#'
               className='block w-full py-2 border-b dark:border-b-zinc-700'
             >
               Packages
-            </a>
+            </Link>
           </li>
           <li className='w-full'>
-            <a
+            <Link
               href='#'
               className='block w-full py-2 border-b dark:border-b-zinc-700'
             >
               Showcase
-            </a>
+            </Link>
           </li>
           <li className='w-full'>
-            <a
+            <Link
               href='#'
               className='block w-full py-2 border-b dark:border-b-zinc-700'
             >
               License
-            </a>
+            </Link>
           </li>
           <li className='flex justify-between items-center w-full mt-4 px-4 py-4 bg-gray-100 dark:bg-zinc-800 rounded'>
             <p className='text-sm text-gray-500'>Appearance</p>
@@ -167,9 +168,12 @@ export default function HeaderBar() {
             </button>
           </li>
           <li className='flex items-center justify-center'>
-            <a href='https://github.com/slince-zero/PhotoWake' target='_blank'>
+            <Link
+              href='https://github.com/slince-zero/PhotoWake'
+              target='_blank'
+            >
               <Github />
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
