@@ -42,7 +42,7 @@ export default function HeaderBar() {
 
   const handleTest = async () => {
     const data = await getTest()
-    console.log(data)
+    console.log(data, 'from backend')
   }
 
   return (
