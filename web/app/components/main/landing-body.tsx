@@ -298,7 +298,7 @@ export default function LandingBody() {
 
       <section className='flex flex-col items-center gap-8 py-12 px-4 bg-gradient-to-b from-purple-50 to-pink-50 dark:from-zinc-950 dark:to-zinc-900'>
         <h2 className='text-4xl font-bold text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent pb-[1px]'>
-          {t('Magical Avatar')} 
+          {t('Magical Avatar')}
         </h2>
 
         <div className='w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8 mt-8'>
@@ -369,7 +369,8 @@ export default function LandingBody() {
             <p className='text-4xl font-bold text-purple-600 mb-6'>$0</p>
             <ul className='space-y-3 mb-8'>
               <li className='flex items-center gap-2 text-gray-600 dark:text-gray-400'>
-                <Check className='w-5 h-5 text-green-500' />{t('5 Avatars per month')}    
+                <Check className='w-5 h-5 text-green-500' />
+                {t('5 Avatars per month')}
               </li>
               <li className='flex items-center gap-2 text-gray-600 dark:text-gray-400'>
                 <Check className='w-5 h-5 text-green-500' />
@@ -417,7 +418,9 @@ export default function LandingBody() {
             <h3 className='text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4'>
               {t('Enterprise')}
             </h3>
-            <p className='text-4xl font-bold text-purple-600 mb-6'>{t('Custom')}</p>
+            <p className='text-4xl font-bold text-purple-600 mb-6'>
+              {t('Custom')}
+            </p>
             <ul className='space-y-3 mb-8'>
               <li className='flex items-center gap-2 text-gray-600 dark:text-gray-400'>
                 <Check className='w-5 h-5 text-green-500' />
@@ -468,12 +471,16 @@ export default function LandingBody() {
               <li className='flex items-start gap-2'>
                 <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
                 <span>
-                  {t('We never share your personal information with third parties')}
+                  {t(
+                    'We never share your personal information with third parties'
+                  )}
                 </span>
               </li>
               <li className='flex items-start gap-2'>
                 <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
-                <span>{t('You maintain full ownership of your created avatars')}</span>
+                <span>
+                  {t('You maintain full ownership of your created avatars')}
+                </span>
               </li>
             </ul>
           </div>
@@ -496,7 +503,9 @@ export default function LandingBody() {
               </li>
               <li className='flex items-start gap-2'>
                 <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
-                <span>{t('Unlimited modifications to your generated avatars')}</span>
+                <span>
+                  {t('Unlimited modifications to your generated avatars')}
+                </span>
               </li>
             </ul>
           </div>
@@ -504,7 +513,7 @@ export default function LandingBody() {
           {/* Service Limitations */}
           <div className='bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-md border border-gray-100 dark:border-zinc-800'>
             <h3 className='text-xl font-semibold text-purple-600 dark:text-purple-400 mb-4'>
-                {t('Service Limitations')}
+              {t('Service Limitations')}
             </h3>
             <ul className='space-y-3 text-gray-600 dark:text-gray-400'>
               <li className='flex items-start gap-2'>
@@ -517,7 +526,9 @@ export default function LandingBody() {
               </li>
               <li className='flex items-start gap-2'>
                 <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
-                <span>{t('Service availability subject to maintenance windows')}</span>
+                <span>
+                  {t('Service availability subject to maintenance windows')}
+                </span>
               </li>
             </ul>
           </div>
