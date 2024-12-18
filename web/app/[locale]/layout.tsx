@@ -10,15 +10,14 @@ export const metadata: Metadata = {
   description: 'avator generator',
 }
 
-export default async function RootLayout(
-  props: Readonly<{
-    children: React.ReactNode
-    params: { locale: string }
-  }>
-) {
-  const { children } = props
-  const params = await props.params
-  const { locale } = params
+export default async function RootLayout({
+  children,
+  params,
+}: Readonly<{
+  children: React.ReactNode
+  params: Promise<{ locale: string }>
+}>) {
+  const { locale } = await params
 
   const VALID_LOCALES = ['en', 'zh']
   const validLocale = VALID_LOCALES.includes(locale) ? locale : 'en'
