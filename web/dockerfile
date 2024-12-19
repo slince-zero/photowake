@@ -4,7 +4,7 @@ WORKDIR /web
 
 COPY package.json ./
 
-RUN pnpm install -g pnpm && pnpm install
+RUN npm install -g pnpm && pnpm install
 
 COPY . .
 
