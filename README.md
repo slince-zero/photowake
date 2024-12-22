@@ -14,6 +14,7 @@ web/app/login/[[...rest]]/page.tsx 是登录页面，用于处理登录和重定
 这个错误是 Next.js 15.0.4 版本中的一个新要求。错误信息表示在使用动态路由参数 params.locale 之前需要先等待（await）它。这是因为在服务器组件中，params 是一个异步对象。
 
 使用下面的命令，会将你的 `params` 转换为 `await params`，详细可以看[文档](https://nextjs.org/docs/messages/sync-dynamic-apis)
+
 ```bash
 npx @next/codemod@canary next-async-request-api .
 ```
