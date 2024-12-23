@@ -4,12 +4,13 @@ import ReviewCard from './review-card'
 import { Check } from 'lucide-react'
 import JSConfetti from 'js-confetti'
 import { useRef, useState } from 'react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 export default function LandingBody() {
   const confettiRef = useRef<HTMLCanvasElement>(null)
   const [activeTab, setActiveTab] = useState('Style')
   const t = useTranslations('LandingBody')
+  const locale = useLocale()
 
   const handleCreateAvatar = () => {
     if (confettiRef.current) {
@@ -225,7 +226,13 @@ export default function LandingBody() {
             {/* 创造独特的数字头像 */}
             {t('Create Your Unique')}
           </h1>
-          <span className='text-4xl md:min-h-[70px] max-h-[60px] md:text-6xl font-bold text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent inline-block overflow-hidden w-0 animate-typing whitespace-nowrap border-r-4 border-r-purple-600 [--typing-width:10.4ch] pb-2 leading-tight'>
+          <span
+            className={`text-4xl md:min-h-[70px] max-h-[60px] md:text-6xl font-bold text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent inline-block overflow-hidden w-0 animate-typing whitespace-nowrap border-r-4 border-r-purple-600 pb-2 leading-tight ${
+              locale === 'zh'
+                ? '[--typing-width:6.4ch]'
+                : '[--typing-width:10.4ch]'
+            }`}
+          >
             {t('Digital Avatar')}
           </span>
         </div>
@@ -351,93 +358,6 @@ export default function LandingBody() {
                 </button>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className='flex flex-col items-center gap-8 py-12 px-4'>
-        <h2 className='text-4xl font-bold text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent pb-[1px]'>
-          {t('Pricing Plans')}
-        </h2>
-
-        <div className='w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-          {/* Free Plan */}
-          <div className='bg-white dark:bg-zinc-900 p-8 rounded-2xl shadow-md border border-gray-100 dark:border-zinc-800 hover:border-purple-200 transition-all duration-300'>
-            <h3 className='text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4'>
-              {t('Free')}
-            </h3>
-            <p className='text-4xl font-bold text-purple-600 mb-6'>$0</p>
-            <ul className='space-y-3 mb-8'>
-              <li className='flex items-center gap-2 text-gray-600 dark:text-gray-400'>
-                <Check className='w-5 h-5 text-green-500' />
-                {t('5 Avatars per month')}
-              </li>
-              <li className='flex items-center gap-2 text-gray-600 dark:text-gray-400'>
-                <Check className='w-5 h-5 text-green-500' />
-                {t('Basic styles')}
-              </li>
-              <li className='flex items-center gap-2 text-gray-600 dark:text-gray-400'>
-                <Check className='w-5 h-5 text-green-500' />
-                {t('Access to all styles')}
-              </li>
-            </ul>
-            <button className='w-full py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-colors'>
-              {t('Get Started')}
-            </button>
-          </div>
-
-          {/* Pro Plan */}
-          <div className='bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 p-8 rounded-2xl shadow-md border border-purple-200 dark:border-purple-800 hover:border-purple-300 transition-all duration-300'>
-            <h3 className='text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4'>
-              {t('Pro')}
-            </h3>
-            <p className='text-4xl font-bold text-purple-600 mb-6'>
-              $9.99<span className='text-base font-normal'>/{t('month')}</span>
-            </p>
-            <ul className='space-y-3 mb-8'>
-              <li className='flex items-center gap-2 text-gray-600 dark:text-gray-400'>
-                <Check className='w-5 h-5 text-green-500' />
-                {t('Unlimited avatars')}
-              </li>
-              <li className='flex items-center gap-2 text-gray-600 dark:text-gray-400'>
-                <Check className='w-5 h-5 text-green-500' />
-                {t('All styles included')}
-              </li>
-              <li className='flex items-center gap-2 text-gray-600 dark:text-gray-400'>
-                <Check className='w-5 h-5 text-green-500' />
-                {t('Priority generation')}
-              </li>
-            </ul>
-            <button className='w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:opacity-90 transition-opacity'>
-              {t('Upgrade to Pro')}
-            </button>
-          </div>
-
-          {/* Enterprise Plan */}
-          <div className='bg-white dark:bg-zinc-900 p-8 rounded-2xl shadow-md border border-gray-100 dark:border-zinc-800 hover:border-purple-200 transition-all duration-300'>
-            <h3 className='text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4'>
-              {t('Enterprise')}
-            </h3>
-            <p className='text-4xl font-bold text-purple-600 mb-6'>
-              {t('Custom')}
-            </p>
-            <ul className='space-y-3 mb-8'>
-              <li className='flex items-center gap-2 text-gray-600 dark:text-gray-400'>
-                <Check className='w-5 h-5 text-green-500' />
-                {t('Custom integration')}
-              </li>
-              <li className='flex items-center gap-2 text-gray-600 dark:text-gray-400'>
-                <Check className='w-5 h-5 text-green-500' />
-                {t('Dedicated support')}
-              </li>
-              <li className='flex items-center gap-2 text-gray-600 dark:text-gray-400'>
-                <Check className='w-5 h-5 text-green-500' />
-                {t('SLA guarantee')}
-              </li>
-            </ul>
-            <button className='w-full py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-colors'>
-              {t('Contact Sales')}
-            </button>
           </div>
         </div>
       </section>
