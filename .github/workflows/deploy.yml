@@ -9,13 +9,18 @@ on:
 # 环境变量
 env:
   DOCKER_REGISTRY: ghcr.io # GitHub Container Registry
-  # 使用 toLowerCase() 函数替代 | lower
-  IMAGE_NAME_FRONTEND: ${{ toLowerCase(github.repository) }}-frontend
-  IMAGE_NAME_BACKEND: ${{ toLowerCase(github.repository) }}-backend
+  # ${{ github.repository }} 仓库全名 (用户名/仓库名)
+  IMAGE_NAME_FRONTEND: ${{ github.repository }}-frontend
+  IMAGE_NAME_BACKEND: ${{ github.repository }}-backend
 
 jobs:
   # 构建阶段
   build:
+    - name: Convert image names to lowercase
+      run: |
+        echo "IMAGE_NAME_FRONTEND=${IMAGE_NAME_FRONTEND,,}" >> $GITHUB_ENV
+        echo "IMAGE_NAME_BACKEND=${IMAGE_NAME_BACKEND,,}" >> $GITHUB_ENV
+    
     # needs: test # 依赖测试作业
     runs-on: ubuntu-20.04
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' # 只有 main 分支有推送时触发
