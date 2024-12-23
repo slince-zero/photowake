@@ -37,8 +37,7 @@ jobs:
           context: ./web
           push: true
           tags: ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:latest
-          cache-from: type=registry,ref=${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:buildcache
-          cache-to: type=registry,ref=${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:buildcache,mode=max
+          # 不支持缓存，后续考虑添加本地缓存
 
       # 构建并推送后端镜像
       - name: Build and push backend image
