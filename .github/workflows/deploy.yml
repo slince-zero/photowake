@@ -73,6 +73,7 @@ jobs:
       # 部署到服务器
       - name: Deploy to server
         run: |
+          echo "=== Testing SSH Connection ==="
           ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'ENDSSH'
             cd /home/PhotoWake
             
@@ -99,3 +100,25 @@ jobs:
         run: |
           sleep 30  # 等待服务启动
           curl -f http://${{ secrets.SERVER_IP }}/health || exit 1
+
+      # 验证部署
+      - name: Verify Deployment
+        run: |
+          echo "=== Verifying Deployment ==="
+          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'ENDSSH'
+            # 检查 Docker 容器状态
+            if docker ps | grep -q "photowake"; then
+              echo "✅ Containers are running"
+            else
+              echo "❌ Containers are not running"
+              exit 1
+            fi
+            
+            # 检查服务可访问性
+            if curl -s http://localhost:3000 > /dev/null; then
+              echo "✅ Service is accessible"
+            else
+              echo "❌ Service is not accessible"
+              exit 1
+            fi
+          ENDSSH
