@@ -74,7 +74,9 @@ jobs:
       - name: Deploy to server
         run: |
           ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'ENDSSH'
-            cd /root/projects/PhotoWake
+            cd /home/PhotoWake
+            
+            echo "Current directory: $(pwd)"
             
             # 拉取最新镜像
             docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:latest
