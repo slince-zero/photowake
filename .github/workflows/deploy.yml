@@ -10,8 +10,8 @@ on:
 env:
   DOCKER_REGISTRY: ghcr.io # GitHub Container Registry
   # ${{ github.repository }} 仓库全名 (用户名/仓库名)
-  IMAGE_NAME_FRONTEND: ${{ github.repository }}-frontend
-  IMAGE_NAME_BACKEND: ${{ github.repository }}-backend
+  IMAGE_NAME_FRONTEND: ${{ github.repository | lower }}-frontend
+  IMAGE_NAME_BACKEND: ${{ github.repository | lower }}-backend
 
 jobs:
   # 构建阶段
