@@ -122,3 +122,8 @@ jobs:
               exit 1
             fi
           ENDSSH
+
+      # 测试 SSH 连接
+      - name: Test SSH Connection
+        run: |
+          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "echo 'SSH connection successful'"
