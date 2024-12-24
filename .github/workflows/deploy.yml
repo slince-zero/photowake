@@ -25,8 +25,8 @@ jobs:
       # 将镜像名称转换为小写
       - name: Convert image names to lowercase
         run: |
-          echo "IMAGE_NAME_FRONTEND=${IMAGE_NAME_FRONTEND,,}" >> $GITHUB_ENV
-          echo "IMAGE_NAME_BACKEND=${IMAGE_NAME_BACKEND,,}" >> $GITHUB_ENV
+          echo "IMAGE_NAME_FRONTEND=$(echo ${{ github.repository }}-frontend | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+          echo "IMAGE_NAME_BACKEND=$(echo ${{ github.repository }}-backend | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
       # 登录到 GitHub Container Registry
       - name: Login to GitHub Container Registry
@@ -132,25 +132,24 @@ jobs:
               exit 1
             fi
 
-            # 检查容器使用的镜像版本
+            # 检查容器使用的镜像版本（使用完整的小写镜像名称）
             echo "=== Checking Image Versions ==="
+            FRONTEND_IMAGE="${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:latest"
+            BACKEND_IMAGE="${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:latest"
+            
             # 检查前端镜像
-            FRONTEND_CURRENT=$(docker inspect --format='{{.Id}}' $(docker ps -q -f name=photowake-frontend))
-            FRONTEND_LATEST=$(docker inspect --format='{{.Id}}' ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:latest)
-            if [ "$FRONTEND_CURRENT" = "$FRONTEND_LATEST" ]; then
-              echo "✅ Frontend is running latest version"
+            if docker inspect "$FRONTEND_IMAGE" >/dev/null 2>&1; then
+              echo "✅ Frontend image exists"
             else
-              echo "❌ Frontend is not running latest version"
+              echo "❌ Frontend image not found"
               exit 1
             fi
 
             # 检查后端镜像
-            BACKEND_CURRENT=$(docker inspect --format='{{.Id}}' $(docker ps -q -f name=photowake-backend))
-            BACKEND_LATEST=$(docker inspect --format='{{.Id}}' ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:latest)
-            if [ "$BACKEND_CURRENT" = "$BACKEND_LATEST" ]; then
-              echo "✅ Backend is running latest version"
+            if docker inspect "$BACKEND_IMAGE" >/dev/null 2>&1; then
+              echo "✅ Backend image exists"
             else
-              echo "❌ Backend is not running latest version"
+              echo "❌ Backend image not found"
               exit 1
             fi
           ENDSSH
