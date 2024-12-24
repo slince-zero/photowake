@@ -83,6 +83,13 @@ jobs:
             
             echo "Current directory: $(pwd)"
             
+            # 停止并删除所有相关容器
+            docker-compose down
+            
+            # 强制删除旧镜像
+            docker rmi -f $(docker images | grep "${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}" | awk '{print $3}') 2>/dev/null || true
+            docker rmi -f $(docker images | grep "${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}" | awk '{print $3}') 2>/dev/null || true
+            
             # 拉取最新镜像
             docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:latest
             docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:latest
@@ -91,12 +98,11 @@ jobs:
             sed -i 's|image: .*frontend:.*|image: ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:latest|' docker-compose.yml
             sed -i 's|image: .*backend:.*|image: ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:latest|' docker-compose.yml
             
-            # 重启服务
-            docker-compose down
-            docker-compose up -d
+            # 使用 --force-recreate 确保使用新镜像创建容器
+            docker-compose up -d --force-recreate
             
-            # 清理未使用的镜像
-            docker image prune -f
+            # 清理未使用的镜像和容器
+            docker system prune -af
           ENDSSH
 
       # 健康检查
