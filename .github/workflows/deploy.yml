@@ -66,6 +66,11 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+        # 测试 SSH 连接
+      - name: Test SSH Connection
+        run: |
+          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "echo 'SSH connection successful'"
+
       # 添加服务器到已知主机
       - name: Add known hosts
         run: ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
@@ -73,7 +78,7 @@ jobs:
       # 部署到服务器
       - name: Deploy to server
         run: |
-          echo "=== Testing SSH Connection ==="
+          echo "=== Starting Deployment ==="
           ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'ENDSSH'
             cd /home/PhotoWake
             
@@ -122,8 +127,3 @@ jobs:
               exit 1
             fi
           ENDSSH
-
-      # 测试 SSH 连接
-      - name: Test SSH Connection
-        run: |
-          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "echo 'SSH connection successful'"
