@@ -125,4 +125,26 @@ jobs:
               echo "❌ Service is not accessible"
               exit 1
             fi
+
+            # 检查容器使用的镜像版本
+            echo "=== Checking Image Versions ==="
+            # 检查前端镜像
+            FRONTEND_CURRENT=$(docker inspect --format='{{.Id}}' $(docker ps -q -f name=photowake-frontend))
+            FRONTEND_LATEST=$(docker inspect --format='{{.Id}}' ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:latest)
+            if [ "$FRONTEND_CURRENT" = "$FRONTEND_LATEST" ]; then
+              echo "✅ Frontend is running latest version"
+            else
+              echo "❌ Frontend is not running latest version"
+              exit 1
+            fi
+
+            # 检查后端镜像
+            BACKEND_CURRENT=$(docker inspect --format='{{.Id}}' $(docker ps -q -f name=photowake-backend))
+            BACKEND_LATEST=$(docker inspect --format='{{.Id}}' ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:latest)
+            if [ "$BACKEND_CURRENT" = "$BACKEND_LATEST" ]; then
+              echo "✅ Backend is running latest version"
+            else
+              echo "❌ Backend is not running latest version"
+              exit 1
+            fi
           ENDSSH

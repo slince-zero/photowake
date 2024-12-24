@@ -223,7 +223,6 @@ export default function LandingBody() {
       <section className='flex flex-col items-center gap-8 py-12 px-4'>
         <div className='flex flex-wrap gap-4 items-center justify-center'>
           <h1 className='text-5xl min-h-[70px] md:text-6xl font-bold text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent'>
-            {/* 创造独特的数字头像 */}
             {t('Create Your Unique')}
           </h1>
           <h1>test</h1>
