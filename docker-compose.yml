@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   photowake-frontend:
-    image: ghcr.io/${GITHUB_REPOSITORY}-frontend:latest
+    image: ghcr.io/slince-zero/photowake-frontend:latest
     ports:
       - "3000:3000"
     env_file:
@@ -10,7 +10,7 @@ services:
     restart: always
 
   photowake-backend:
-    image: ghcr.io/${GITHUB_REPOSITORY}-backend:latest
+    image: ghcr.io/slince-zero/photowake-backend:latest
     ports:
       - "3080:3080"
     env_file:
