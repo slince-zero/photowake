@@ -79,7 +79,7 @@ jobs:
         run: |
           echo "=== Starting Deployment ==="
           ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'ENDSSH'
-            cd /home/PhotoWake
+            cd /home/photowake
             
             echo "Current directory: $(pwd)"
             
