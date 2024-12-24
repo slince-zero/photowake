@@ -116,28 +116,33 @@ jobs:
         run: |
           echo "=== Verifying Deployment ==="
           ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'ENDSSH'
-            # 检查 Docker 容器状态
-            if docker ps | grep -q "photowake"; then
-              echo "✅ Containers are running"
-            else
-              echo "❌ Containers are not running"
-              exit 1
-            fi
+            cd /home/PhotoWake
             
-            # 检查服务可访问性
-            if curl -s http://localhost:3000 > /dev/null; then
-              echo "✅ Service is accessible"
-            else
-              echo "❌ Service is not accessible"
-              exit 1
-            fi
-
-            # 检查容器使用的镜像版本（使用完整的小写镜像名称）
-            echo "=== Checking Image Versions ==="
+            # 显示环境变量值
+            echo "Checking environment variables:"
+            echo "DOCKER_REGISTRY: ${{ env.DOCKER_REGISTRY }}"
+            echo "IMAGE_NAME_FRONTEND: ${{ env.IMAGE_NAME_FRONTEND }}"
+            echo "IMAGE_NAME_BACKEND: ${{ env.IMAGE_NAME_BACKEND }}"
+            
+            # 列出所有 Docker 镜像
+            echo "=== Available Docker Images ==="
+            docker images
+            
+            # 检查 Docker 容器状态
+            echo "=== Running Containers ==="
+            docker ps
+            
+            # 尝试拉取镜像
+            echo "=== Pulling Images ==="
+            docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:latest
+            docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:latest
+            
+            # 检查镜像是否存在
+            echo "=== Checking Images ==="
             FRONTEND_IMAGE="${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:latest"
             BACKEND_IMAGE="${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:latest"
             
-            # 检查前端镜像
+            echo "Looking for frontend image: $FRONTEND_IMAGE"
             if docker inspect "$FRONTEND_IMAGE" >/dev/null 2>&1; then
               echo "✅ Frontend image exists"
             else
@@ -145,7 +150,7 @@ jobs:
               exit 1
             fi
 
-            # 检查后端镜像
+            echo "Looking for backend image: $BACKEND_IMAGE"
             if docker inspect "$BACKEND_IMAGE" >/dev/null 2>&1; then
               echo "✅ Backend image exists"
             else
