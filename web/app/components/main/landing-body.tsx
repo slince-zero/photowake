@@ -1,16 +1,42 @@
 'use client'
 
 import ReviewCard from './review-card'
-import { Check } from 'lucide-react'
+import { Check, X } from 'lucide-react'
 import JSConfetti from 'js-confetti'
 import { useRef, useState } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
+import Image from 'next/image'
+
+interface SelectedWidgets {
+  face?: string
+  eyes?: string
+  eyebrows?: string
+  nose?: string
+  mouth?: string
+  ears?: string
+  hair?: string
+}
 
 export default function LandingBody() {
   const confettiRef = useRef<HTMLCanvasElement>(null)
   const [activeTab, setActiveTab] = useState('Style')
+  const [selectedWidgets, setSelectedWidgets] = useState<SelectedWidgets>({})
   const t = useTranslations('LandingBody')
   const locale = useLocale()
+
+  const handleWidgetSelect = (type: keyof SelectedWidgets, path: string) => {
+    setSelectedWidgets((prev) => ({
+      ...prev,
+      [type]: path === prev[type] ? undefined : path,
+    }))
+  }
+
+  const handleClearWidget = (type: keyof SelectedWidgets) => {
+    setSelectedWidgets((prev) => ({
+      ...prev,
+      [type]: undefined,
+    }))
+  }
 
   const handleCreateAvatar = () => {
     if (confettiRef.current) {
@@ -29,6 +55,17 @@ export default function LandingBody() {
         confettiNumber: 100,
       })
     }
+  }
+
+  // 定义每个部件的尺寸和位置
+  const widgetStyles: Record<keyof SelectedWidgets, { width: number; height: number; className: string }> = {
+    face: { width: 300, height: 300, className: 'absolute inset-0 m-auto' },
+    eyes: { width: 150, height: 50, className: 'absolute top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2' },
+    eyebrows: { width: 150, height: 30, className: 'absolute top-[35%] left-1/2 -translate-x-1/2' },
+    nose: { width: 60, height: 60, className: 'absolute top-[55%] left-1/2 -translate-x-1/2' },
+    mouth: { width: 100, height: 40, className: 'absolute top-[70%] left-1/2 -translate-x-1/2' },
+    ears: { width: 200, height: 100, className: 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' },
+    hair: { width: 300, height: 200, className: 'absolute top-0 left-1/2 -translate-x-1/2' }
   }
 
   // Tab content components
@@ -57,83 +94,28 @@ export default function LandingBody() {
 
     Face: (
       <div className='space-y-6'>
-        <div className='space-y-2'>
-          <label className='text-sm text-gray-600 dark:text-gray-400'>
-            Skin Tone
-          </label>
-          <div className='flex gap-2'>
-            {[
-              '#FFDBB4',
-              '#EDB98A',
-              '#D08B5B',
-              '#AE5D29',
-              '#694D3D',
-              '#452B1F',
-            ].map((color) => (
+        <div className='grid grid-cols-2 sm:grid-cols-3 gap-4'>
+          <div className="relative group">
+            <Image
+              src='/widgets/face/face.svg'
+              alt='Face'
+              width={100}
+              height={100}
+              className={`cursor-pointer rounded-lg p-2 ${
+                selectedWidgets.face === '/widgets/face/face.svg'
+                  ? 'bg-purple-100 dark:bg-purple-900'
+                  : 'hover:bg-purple-50 dark:hover:bg-purple-950'
+              }`}
+              onClick={() => handleWidgetSelect('face', '/widgets/face/face.svg')}
+            />
+            {selectedWidgets.face && (
               <button
-                key={color}
-                className='w-8 h-8 rounded-full border-2 border-white dark:border-zinc-700 hover:scale-110 transition-transform'
-                style={{ backgroundColor: color }}
-              />
-            ))}
-          </div>
-        </div>
-        <div className='space-y-2'>
-          <label className='text-sm text-gray-600 dark:text-gray-400'>
-            Face Shape
-          </label>
-          <div className='grid grid-cols-2 gap-2'>
-            {['Round', 'Oval', 'Square', 'Heart'].map((shape) => (
-              <button
-                key={shape}
-                className='px-3 py-2 text-sm rounded-lg bg-purple-50 dark:bg-zinc-800 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-zinc-700 transition-colors'
+                onClick={() => handleClearWidget('face')}
+                className="absolute -top-2 -right-2 p-1 bg-red-500 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity"
               >
-                {shape}
+                <X size={14} />
               </button>
-            ))}
-          </div>
-        </div>
-      </div>
-    ),
-
-    Hair: (
-      <div className='space-y-6'>
-        <div className='space-y-2'>
-          <label className='text-sm text-gray-600 dark:text-gray-400'>
-            Hair Style
-          </label>
-          <div className='grid grid-cols-2 gap-2'>
-            {['Short', 'Long', 'Curly', 'Wavy', 'Straight', 'Bald'].map(
-              (style) => (
-                <button
-                  key={style}
-                  className='px-3 py-2 text-sm rounded-lg bg-purple-50 dark:bg-zinc-800 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-zinc-700 transition-colors'
-                >
-                  {style}
-                </button>
-              )
             )}
-          </div>
-        </div>
-        <div className='space-y-2'>
-          <label className='text-sm text-gray-600 dark:text-gray-400'>
-            Hair Color
-          </label>
-          <div className='flex gap-2'>
-            {[
-              '#000000',
-              '#4A3319',
-              '#B87A3D',
-              '#F2C035',
-              '#FFF345',
-              '#FF0000',
-            ].map((color) => (
-              <button
-                key={color}
-                className='w-8 h-8 rounded-full border-2 border-white dark:border-zinc-700 hover:scale-110 transition-transform'
-                style={{ backgroundColor: color }}
-              />
-            ))}
           </div>
         </div>
       </div>
@@ -141,43 +123,110 @@ export default function LandingBody() {
 
     Eyes: (
       <div className='space-y-6'>
-        <div className='space-y-2'>
-          <label className='text-sm text-gray-600 dark:text-gray-400'>
-            Eye Shape
-          </label>
-          <div className='grid grid-cols-2 gap-2'>
-            {[
-              'Round',
-              'Almond',
-              'Upturned',
-              'Downturned',
-              'Hooded',
-              'Wide',
-            ].map((shape) => (
+        <div className='grid grid-cols-2 sm:grid-cols-3 gap-4'>
+          <div className="relative group">
+            <Image
+              src='/widgets/eyes/eye_1.svg'
+              alt='Eyes 1'
+              width={100}
+              height={100}
+              className={`cursor-pointer rounded-lg p-2 ${
+                selectedWidgets.eyes === '/widgets/eyes/eye_1.svg'
+                  ? 'bg-purple-100 dark:bg-purple-900'
+                  : 'hover:bg-purple-50 dark:hover:bg-purple-950'
+              }`}
+              onClick={() => handleWidgetSelect('eyes', '/widgets/eyes/eye_1.svg')}
+            />
+            {selectedWidgets.eyes === '/widgets/eyes/eye_1.svg' && (
               <button
-                key={shape}
-                className='px-3 py-2 text-sm rounded-lg bg-purple-50 dark:bg-zinc-800 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-zinc-700 transition-colors'
+                onClick={() => handleClearWidget('eyes')}
+                className="absolute -top-2 -right-2 p-1 bg-red-500 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity"
               >
-                {shape}
+                <X size={14} />
               </button>
-            ))}
-          </div>
-        </div>
-        <div className='space-y-2'>
-          <label className='text-sm text-gray-600 dark:text-gray-400'>
-            Eye Color
-          </label>
-          <div className='flex gap-2'>
-            {['#4B3621', '#82B5C3', '#86C14F', '#B5A642', '#702963'].map(
-              (color) => (
-                <button
-                  key={color}
-                  className='w-8 h-8 rounded-full border-2 border-white dark:border-zinc-700 hover:scale-110 transition-transform'
-                  style={{ backgroundColor: color }}
-                />
-              )
             )}
           </div>
+          <div className="relative group">
+            <Image
+              src='/widgets/eyes/eye_2.svg'
+              alt='Eyes 2'
+              width={100}
+              height={100}
+              className={`cursor-pointer rounded-lg p-2 ${
+                selectedWidgets.eyes === '/widgets/eyes/eye_2.svg'
+                  ? 'bg-purple-100 dark:bg-purple-900'
+                  : 'hover:bg-purple-50 dark:hover:bg-purple-950'
+              }`}
+              onClick={() => handleWidgetSelect('eyes', '/widgets/eyes/eye_2.svg')}
+            />
+            {selectedWidgets.eyes === '/widgets/eyes/eye_2.svg' && (
+              <button
+                onClick={() => handleClearWidget('eyes')}
+                className="absolute -top-2 -right-2 p-1 bg-red-500 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity"
+              >
+                <X size={14} />
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    ),
+
+    Eyebrows: (
+      <div className='space-y-6'>
+        <div className='grid grid-cols-2 sm:grid-cols-3 gap-4'>
+          <Image
+            src='/widgets/eyebrows/eyebrow_1.svg'
+            alt='Eyebrows'
+            width={100}
+            height={100}
+            className={`cursor-pointer rounded-lg p-2 ${
+              selectedWidgets.eyebrows === '/widgets/eyebrows/eyebrow_1.svg'
+                ? 'bg-purple-100 dark:bg-purple-900'
+                : 'hover:bg-purple-50 dark:hover:bg-purple-950'
+            }`}
+            onClick={() =>
+              handleWidgetSelect('eyebrows', '/widgets/eyebrows/eyebrow_1.svg')
+            }
+          />
+        </div>
+      </div>
+    ),
+
+    Ears: (
+      <div className='space-y-6'>
+        <div className='grid grid-cols-2 sm:grid-cols-3 gap-4'>
+          <Image
+            src='/widgets/ears/ear.svg'
+            alt='Ears'
+            width={100}
+            height={100}
+            className={`cursor-pointer rounded-lg p-2 ${
+              selectedWidgets.ears === '/widgets/ears/ear.svg'
+                ? 'bg-purple-100 dark:bg-purple-900'
+                : 'hover:bg-purple-50 dark:hover:bg-purple-950'
+            }`}
+            onClick={() =>
+              handleWidgetSelect('ears', '/widgets/ears/ear.svg')
+            }
+          />
+        </div>
+      </div>
+    ),
+
+    Hair: (
+      <div className='space-y-6'>
+        <div className='grid grid-cols-2 sm:grid-cols-3 gap-4'>
+          <Image
+            src='/widgets/hair/hair_1.svg'
+            alt='Hair'
+            width={100}
+            height={100}
+            className='cursor-pointer rounded-lg p-2'
+            onClick={() =>
+              handleWidgetSelect('hair', '/widgets/hair/hair_1.svg')
+            }
+          />
         </div>
       </div>
     ),
@@ -225,7 +274,6 @@ export default function LandingBody() {
           <h1 className='text-5xl min-h-[70px] md:text-6xl font-bold text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent'>
             {t('Create Your Unique')}
           </h1>
-          <h1>testssss</h1>
           <span
             className={`text-4xl md:min-h-[70px] max-h-[60px] md:text-6xl font-bold text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent inline-block overflow-hidden w-0 animate-typing whitespace-nowrap border-r-4 border-r-purple-600 pb-2 leading-tight ${
               locale === 'zh'
@@ -316,9 +364,22 @@ export default function LandingBody() {
               className='absolute inset-0 w-full h-full z-10'
             />
             <div className='bg-white dark:bg-zinc-900 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-zinc-800'>
-              <div className='aspect-square w-full bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-xl flex items-center justify-center'>
-                {/* Placeholder for avatar preview */}
-                <div className='w-48 h-48 bg-gray-200 dark:bg-zinc-800 rounded-full animate-pulse'></div>
+              <div className='aspect-square w-full bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-xl flex items-center justify-center relative'>
+                {/* Display selected widgets */}
+                {Object.entries(selectedWidgets).map(([type, path]) => {
+                  if (!path) return null
+                  const style = widgetStyles[type as keyof SelectedWidgets]
+                  return (
+                    <Image
+                      key={type}
+                      src={path}
+                      alt={type}
+                      width={style.width}
+                      height={style.height}
+                      className={style.className}
+                    />
+                  )
+                })}
               </div>
             </div>
           </div>
