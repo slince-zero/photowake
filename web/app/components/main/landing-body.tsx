@@ -58,14 +58,59 @@ export default function LandingBody() {
   }
 
   // 定义每个部件的尺寸和位置
-  const widgetStyles: Record<keyof SelectedWidgets, { width: number; height: number; className: string }> = {
-    face: { width: 300, height: 300, className: 'absolute inset-0 m-auto' },
-    eyes: { width: 150, height: 50, className: 'absolute top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2' },
-    eyebrows: { width: 150, height: 30, className: 'absolute top-[35%] left-1/2 -translate-x-1/2' },
-    nose: { width: 60, height: 60, className: 'absolute top-[55%] left-1/2 -translate-x-1/2' },
-    mouth: { width: 100, height: 40, className: 'absolute top-[70%] left-1/2 -translate-x-1/2' },
-    ears: { width: 200, height: 100, className: 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' },
-    hair: { width: 300, height: 200, className: 'absolute top-0 left-1/2 -translate-x-1/2' }
+  const widgetStyles: Record<
+    keyof SelectedWidgets,
+    { width: number; height: number; className: string; zIndex: number }
+  > = {
+    // 脸部作为基础层
+    face: {
+      width: 300,
+      height: 300,
+      className: 'absolute inset-0 m-auto',
+      zIndex: 10
+    },
+    // 眼睛需要在脸部中间偏上位置
+    eyes: {
+      width: 160,
+      height: 40,
+      className: 'absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2',
+      zIndex: 50
+    },
+    // 鼻子需要在眼睛正下方
+    nose: {
+      width: 50,
+      height: 50,
+      className: 'absolute left-1/2 top-[52%] -translate-x-1/2 -translate-y-1/2',
+      zIndex: 60
+    },
+    // 眉毛需要在眼睛上方适当位置
+    eyebrows: {
+      width: 160,
+      height: 25,
+      className: 'absolute left-1/2 top-[34%] -translate-x-1/2 -translate-y-1/2',
+      zIndex: 70
+    },
+    // 头发需要覆盖头部上方和两侧
+    hair: {
+      width: 300,
+      height: 300,
+      className: 'absolute inset-0 m-auto',
+      zIndex: 80
+    },
+    // 嘴巴需要在鼻子下方适当位置
+    mouth: {
+      width: 80,
+      height: 35,
+      className: 'absolute left-1/2 top-[68%] -translate-x-1/2 -translate-y-1/2',
+      zIndex: 100
+    },
+    // 耳朵需要在头部两侧中间位置
+    ears: {
+      width: 300,
+      height: 300,
+      className: 'absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2',
+      zIndex: 102
+    }
   }
 
   // Tab content components
@@ -95,7 +140,7 @@ export default function LandingBody() {
     Face: (
       <div className='space-y-6'>
         <div className='grid grid-cols-2 sm:grid-cols-3 gap-4'>
-          <div className="relative group">
+          <div className='relative group'>
             <Image
               src='/widgets/face/face.svg'
               alt='Face'
@@ -106,12 +151,14 @@ export default function LandingBody() {
                   ? 'bg-purple-100 dark:bg-purple-900'
                   : 'hover:bg-purple-50 dark:hover:bg-purple-950'
               }`}
-              onClick={() => handleWidgetSelect('face', '/widgets/face/face.svg')}
+              onClick={() =>
+                handleWidgetSelect('face', '/widgets/face/face.svg')
+              }
             />
             {selectedWidgets.face && (
               <button
                 onClick={() => handleClearWidget('face')}
-                className="absolute -top-2 -right-2 p-1 bg-red-500 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity"
+                className='absolute -top-2 -right-2 p-1 bg-red-500 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity'
               >
                 <X size={14} />
               </button>
@@ -124,7 +171,7 @@ export default function LandingBody() {
     Eyes: (
       <div className='space-y-6'>
         <div className='grid grid-cols-2 sm:grid-cols-3 gap-4'>
-          <div className="relative group">
+          <div className='relative group'>
             <Image
               src='/widgets/eyes/eye_1.svg'
               alt='Eyes 1'
@@ -135,18 +182,20 @@ export default function LandingBody() {
                   ? 'bg-purple-100 dark:bg-purple-900'
                   : 'hover:bg-purple-50 dark:hover:bg-purple-950'
               }`}
-              onClick={() => handleWidgetSelect('eyes', '/widgets/eyes/eye_1.svg')}
+              onClick={() =>
+                handleWidgetSelect('eyes', '/widgets/eyes/eye_1.svg')
+              }
             />
             {selectedWidgets.eyes === '/widgets/eyes/eye_1.svg' && (
               <button
                 onClick={() => handleClearWidget('eyes')}
-                className="absolute -top-2 -right-2 p-1 bg-red-500 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity"
+                className='absolute -top-2 -right-2 p-1 bg-red-500 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity'
               >
                 <X size={14} />
               </button>
             )}
           </div>
-          <div className="relative group">
+          <div className='relative group'>
             <Image
               src='/widgets/eyes/eye_2.svg'
               alt='Eyes 2'
@@ -157,12 +206,14 @@ export default function LandingBody() {
                   ? 'bg-purple-100 dark:bg-purple-900'
                   : 'hover:bg-purple-50 dark:hover:bg-purple-950'
               }`}
-              onClick={() => handleWidgetSelect('eyes', '/widgets/eyes/eye_2.svg')}
+              onClick={() =>
+                handleWidgetSelect('eyes', '/widgets/eyes/eye_2.svg')
+              }
             />
             {selectedWidgets.eyes === '/widgets/eyes/eye_2.svg' && (
               <button
                 onClick={() => handleClearWidget('eyes')}
-                className="absolute -top-2 -right-2 p-1 bg-red-500 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity"
+                className='absolute -top-2 -right-2 p-1 bg-red-500 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity'
               >
                 <X size={14} />
               </button>
@@ -206,9 +257,7 @@ export default function LandingBody() {
                 ? 'bg-purple-100 dark:bg-purple-900'
                 : 'hover:bg-purple-50 dark:hover:bg-purple-950'
             }`}
-            onClick={() =>
-              handleWidgetSelect('ears', '/widgets/ears/ear.svg')
-            }
+            onClick={() => handleWidgetSelect('ears', '/widgets/ears/ear.svg')}
           />
         </div>
       </div>
@@ -222,9 +271,34 @@ export default function LandingBody() {
             alt='Hair'
             width={100}
             height={100}
-            className='cursor-pointer rounded-lg p-2'
+            className={`cursor-pointer rounded-lg p-2 ${
+              selectedWidgets.hair === '/widgets/hair/hair_1.svg'
+                ? 'bg-purple-100 dark:bg-purple-900'
+                : 'hover:bg-purple-50 dark:hover:bg-purple-950'
+            }`}
             onClick={() =>
               handleWidgetSelect('hair', '/widgets/hair/hair_1.svg')
+            }
+          />
+        </div>
+      </div>
+    ),
+
+    Mouth: (
+      <div className='space-y-6'>
+        <div className='grid grid-cols-2 sm:grid-cols-3 gap-4'>
+          <Image
+            src='/widgets/mouth/mouth_1.svg'
+            alt='Mouth'
+            width={100}
+            height={100}
+            className={`cursor-pointer rounded-lg p-2 ${
+              selectedWidgets.mouth === '/widgets/mouth/mouth_1.svg'
+                ? 'bg-purple-100 dark:bg-purple-900'
+                : 'hover:bg-purple-50 dark:hover:bg-purple-950'
+            }`}
+            onClick={() =>
+              handleWidgetSelect('mouth', '/widgets/mouth/mouth_1.svg')
             }
           />
         </div>
@@ -351,12 +425,12 @@ export default function LandingBody() {
         </button>
       </section>
 
-      <section className='flex flex-col items-center gap-8 py-12 px-4 bg-gradient-to-b from-purple-50 to-pink-50 dark:from-zinc-950 dark:to-zinc-900'>
+      <section className='flex flex-col items-center gap-8 py-12 px-4 bg-gradient-to-b from-purple-50 to-pink-50 dark:from-zinc-950 dark:to-zinc-900 rounded-2xl'>
         <h2 className='text-4xl font-bold text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent pb-[1px]'>
           {t('Magical Avatar')}
         </h2>
 
-        <div className='w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8 mt-8'>
+        <div className='w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8 my-8'>
           {/* Preview Area */}
           <div className='relative'>
             <canvas
@@ -364,22 +438,39 @@ export default function LandingBody() {
               className='absolute inset-0 w-full h-full z-10'
             />
             <div className='bg-white dark:bg-zinc-900 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-zinc-800'>
-              <div className='aspect-square w-full bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-xl flex items-center justify-center relative'>
+              <div className='w-[300px] h-[300px] mx-auto bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-xl relative'>
                 {/* Display selected widgets */}
-                {Object.entries(selectedWidgets).map(([type, path]) => {
-                  if (!path) return null
-                  const style = widgetStyles[type as keyof SelectedWidgets]
-                  return (
-                    <Image
-                      key={type}
-                      src={path}
-                      alt={type}
-                      width={style.width}
-                      height={style.height}
-                      className={style.className}
-                    />
-                  )
-                })}
+                {Object.entries(selectedWidgets)
+                  .sort(([a], [b]) => {
+                    const styleA = widgetStyles[a as keyof SelectedWidgets]
+                    const styleB = widgetStyles[b as keyof SelectedWidgets]
+                    return styleA.zIndex - styleB.zIndex
+                  })
+                  .map(([type, path]) => {
+                    if (!path) return null
+                    const style = widgetStyles[type as keyof SelectedWidgets]
+                    return (
+                      <div 
+                        key={type}
+                        className={style.className}
+                        style={{ 
+                          zIndex: style.zIndex,
+                          width: style.width,
+                          height: style.height,
+                          position: 'absolute'
+                        }}
+                      >
+                        <Image
+                          src={path}
+                          alt={type}
+                          width={style.width}
+                          height={style.height}
+                          className="w-full h-full object-contain"
+                          priority
+                        />
+                      </div>
+                    )
+                  })}
               </div>
             </div>
           </div>
@@ -393,7 +484,7 @@ export default function LandingBody() {
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors -mb-[2px] ${
+                    className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors whitespace-nowrap -mb-[2px] ${
                       activeTab === tab
                         ? 'text-purple-600 border-purple-600'
                         : 'text-gray-600 dark:text-gray-400 border-transparent hover:text-purple-600 hover:border-purple-600'
