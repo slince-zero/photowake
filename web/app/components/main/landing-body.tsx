@@ -67,50 +67,55 @@ export default function LandingBody() {
       width: 300,
       height: 300,
       className: 'absolute inset-0 m-auto',
-      zIndex: 10
+      zIndex: 10,
     },
     // 眼睛需要在脸部中间偏上位置
     eyes: {
       width: 160,
       height: 40,
-      className: 'absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2',
-      zIndex: 50
+      className:
+        'absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2',
+      zIndex: 50,
     },
     // 鼻子需要在眼睛正下方
     nose: {
       width: 50,
       height: 50,
-      className: 'absolute left-1/2 top-[52%] -translate-x-1/2 -translate-y-1/2',
-      zIndex: 60
+      className:
+        'absolute left-1/2 top-[52%] -translate-x-1/2 -translate-y-1/2',
+      zIndex: 60,
     },
     // 眉毛需要在眼睛上方适当位置
     eyebrows: {
       width: 160,
       height: 25,
-      className: 'absolute left-1/2 top-[34%] -translate-x-1/2 -translate-y-1/2',
-      zIndex: 70
+      className:
+        'absolute left-1/2 top-[34%] -translate-x-1/2 -translate-y-1/2',
+      zIndex: 70,
     },
     // 头发需要覆盖头部上方和两侧
     hair: {
       width: 300,
       height: 300,
       className: 'absolute inset-0 m-auto',
-      zIndex: 80
+      zIndex: 80,
     },
     // 嘴巴需要在鼻子下方适当位置
     mouth: {
       width: 80,
       height: 35,
-      className: 'absolute left-1/2 top-[68%] -translate-x-1/2 -translate-y-1/2',
-      zIndex: 100
+      className:
+        'absolute left-1/2 top-[68%] -translate-x-1/2 -translate-y-1/2',
+      zIndex: 100,
     },
     // 耳朵需要在头部两侧中间位置
     ears: {
       width: 300,
       height: 300,
-      className: 'absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2',
-      zIndex: 102
-    }
+      className:
+        'absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2',
+      zIndex: 102,
+    },
   }
 
   // Tab content components
@@ -438,7 +443,7 @@ export default function LandingBody() {
               className='absolute inset-0 w-full h-full z-10'
             />
             <div className='bg-white dark:bg-zinc-900 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-zinc-800'>
-              <div className='w-[300px] h-[300px] mx-auto bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-xl relative'>
+              <div className='w-[300px] h-[300px] mx-auto rounded-xl relative'>
                 {/* Display selected widgets */}
                 {Object.entries(selectedWidgets)
                   .sort(([a], [b]) => {
@@ -450,14 +455,14 @@ export default function LandingBody() {
                     if (!path) return null
                     const style = widgetStyles[type as keyof SelectedWidgets]
                     return (
-                      <div 
+                      <div
                         key={type}
                         className={style.className}
-                        style={{ 
+                        style={{
                           zIndex: style.zIndex,
                           width: style.width,
                           height: style.height,
-                          position: 'absolute'
+                          position: 'absolute',
                         }}
                       >
                         <Image
@@ -465,7 +470,7 @@ export default function LandingBody() {
                           alt={type}
                           width={style.width}
                           height={style.height}
-                          className="w-full h-full object-contain"
+                          className='w-full h-full object-contain'
                           priority
                         />
                       </div>
