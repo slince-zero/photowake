@@ -12,15 +12,19 @@ env:
   # ${{ github.repository }} 仓库全名 (用户名/仓库名)
   IMAGE_NAME_FRONTEND: ${{ github.repository }}-frontend
   IMAGE_NAME_BACKEND: ${{ github.repository }}-backend
+  HEALTH_CHECK_RETRIES: 5
+  HEALTH_CHECK_INTERVAL: 10
 
 jobs:
-  # 构建阶段
   build:
-    # needs: test # 依赖测试作业
     runs-on: ubuntu-20.04
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' # 只有 main 分支有推送时触发
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    outputs:
+      version: ${{ steps.version.outputs.version }}
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       # 将镜像名称转换为小写
       - name: Convert image names to lowercase
@@ -36,27 +40,36 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }} # Github 自动提供的 token
 
-      # 构建并推送前端镜像
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
       - name: Build and push frontend image
         uses: docker/build-push-action@v4
         with:
           context: ./web
           push: true
-          tags: ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:latest
-          # 不支持缓存，后续考虑添加本地缓存
+          tags: |
+            ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:latest
+            ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:${{ steps.version.outputs.version }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
-      # 构建并推送后端镜像
       - name: Build and push backend image
         uses: docker/build-push-action@v4
         with:
           context: ./server
           push: true
-          tags: ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:latest
+          tags: |
+            ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:latest
+            ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:${{ steps.version.outputs.version }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
-  # 部署阶段
   deploy:
     needs: build
     runs-on: ubuntu-20.04
+    env:
+      VERSION: ${{ needs.build.outputs.version }}
     steps:
       - uses: actions/checkout@v3
 
@@ -76,85 +89,67 @@ jobs:
           ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "echo 'SSH connection successful'"
       # 部署到服务器
       - name: Deploy to server
+        id: deploy
         run: |
           echo "=== Starting Deployment ==="
           ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'ENDSSH'
+            set -e  # 任何命令失败立即退出
             cd /home/photowake
             
-            echo "Current directory: $(pwd)"
+            # 备份当前的 docker-compose.yml
+            cp docker-compose.yml docker-compose.yml.backup
             
             # 停止并删除所有相关容器
-            docker-compose down
+            docker-compose down || true
             
-            # 强制删除旧镜像
-            docker rmi -f $(docker images | grep "${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}" | awk '{print $3}') 2>/dev/null || true
-            docker rmi -f $(docker images | grep "${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}" | awk '{print $3}') 2>/dev/null || true
-            
-            # 拉取最新镜像
-            docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:latest
-            docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:latest
+            # 拉取新版本镜像
+            docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:${{ env.VERSION }}
+            docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:${{ env.VERSION }}
             
             # 更新 docker-compose.yml 中的镜像标签
-            sed -i 's|image: .*frontend:.*|image: ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:latest|' docker-compose.yml
-            sed -i 's|image: .*backend:.*|image: ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:latest|' docker-compose.yml
+            sed -i "s|image: .*frontend:.*|image: ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:${{ env.VERSION }}|" docker-compose.yml
+            sed -i "s|image: .*backend:.*|image: ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:${{ env.VERSION }}|" docker-compose.yml
             
-            # 使用 --force-recreate 确保使用新镜像创建容器
+            # 启动新容器
             docker-compose up -d --force-recreate
-            
-            # 清理未使用的镜像和容器
-            docker system prune -af
           ENDSSH
 
       # 健康检查
       - name: Health check
         run: |
-          sleep 30  # 等待服务启动
-          curl -f http://${{ secrets.SERVER_IP }}/health || exit 1
+          for i in $(seq 1 ${{ env.HEALTH_CHECK_RETRIES }}); do
+            echo "Health check attempt $i of ${{ env.HEALTH_CHECK_RETRIES }}"
+            if curl -f http://${{ secrets.SERVER_IP }}/health; then
+              echo "Health check passed"
+              exit 0
+            fi
+            if [ $i -lt ${{ env.HEALTH_CHECK_RETRIES }} ]; then
+              echo "Waiting ${{ env.HEALTH_CHECK_INTERVAL }} seconds before next attempt..."
+              sleep ${{ env.HEALTH_CHECK_INTERVAL }}
+            fi
+          done
+          echo "Health check failed after ${{ env.HEALTH_CHECK_RETRIES }} attempts"
+          exit 1
 
-      # 验证部署
-      - name: Verify Deployment
+      - name: Rollback on failure
+        if: failure()
         run: |
-          echo "=== Verifying Deployment ==="
+          echo "=== Starting Rollback ==="
           ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'ENDSSH'
-            cd /home/PhotoWake
-            
-            # 显示环境变量值
-            echo "Checking environment variables:"
-            echo "DOCKER_REGISTRY: ${{ env.DOCKER_REGISTRY }}"
-            echo "IMAGE_NAME_FRONTEND: ${{ env.IMAGE_NAME_FRONTEND }}"
-            echo "IMAGE_NAME_BACKEND: ${{ env.IMAGE_NAME_BACKEND }}"
-            
-            # 列出所有 Docker 镜像
-            echo "=== Available Docker Images ==="
-            docker images
-            
-            # 检查 Docker 容器状态
-            echo "=== Running Containers ==="
-            docker ps
-            
-            # 尝试拉取镜像
-            echo "=== Pulling Images ==="
-            docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:latest
-            docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:latest
-            
-            # 检查镜像是否存在
-            echo "=== Checking Images ==="
-            FRONTEND_IMAGE="${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:latest"
-            BACKEND_IMAGE="${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:latest"
-            
-            echo "Looking for frontend image: $FRONTEND_IMAGE"
-            if docker inspect "$FRONTEND_IMAGE" >/dev/null 2>&1; then
-              echo "✅ Frontend image exists"
-            else
-              echo "❌ Frontend image not found"
-              exit 1
-            fi
+            cd /home/photowake
+            # 恢复备份的 docker-compose.yml
+            mv docker-compose.yml.backup docker-compose.yml
+            # 重启使用旧配置
+            docker-compose up -d --force-recreate
+          ENDSSH
 
-            echo "Looking for backend image: $BACKEND_IMAGE"
-            if docker inspect "$BACKEND_IMAGE" >/dev/null 2>&1; then
-              echo "✅ Backend image exists"
-            else
-              echo "❌ Backend image not found"
-              exit 1
-            fi
+      - name: Cleanup
+        if: always()
+        run: |
+          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'ENDSSH'
+            cd /home/photowake
+            # 清理旧的备份文件
+            rm -f docker-compose.yml.backup
+            # 清理未使用的镜像和容器
+            docker system prune -af --volumes
           ENDSSH
