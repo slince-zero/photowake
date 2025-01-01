@@ -26,6 +26,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Generate version
+        id: version
+        run: |
+          # 使用时间戳和git短hash组合作为版本号
+          echo "version=$(date +%Y%m%d)-$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
       # 将镜像名称转换为小写
       - name: Convert image names to lowercase
         run: |
