@@ -64,56 +64,55 @@ export default function LandingBody() {
   > = {
     // 脸部作为基础层
     face: {
-      width: 300,
-      height: 300,
-      className: 'absolute inset-0 m-auto',
+      width: 200,
+      height: 240,
+      className: 'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
       zIndex: 10,
     },
-    // 眼睛需要在脸部中间偏上位置
+    // 眼睛位置调整，确保在脸部正确位置
     eyes: {
-      width: 160,
-      height: 40,
+      width: 100,
+      height: 30,
       className:
-        'absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2',
+        'absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-1/2',
       zIndex: 50,
     },
-    // 鼻子需要在眼睛正下方
+    // 鼻子调整大小和位置
     nose: {
-      width: 50,
-      height: 50,
+      width: 30,
+      height: 30,
       className:
-        'absolute left-1/2 top-[52%] -translate-x-1/2 -translate-y-1/2',
+        'absolute left-1/2 top-[55%] -translate-x-1/2 -translate-y-1/2',
       zIndex: 60,
     },
-    // 眉毛需要在眼睛上方适当位置
+    // 眉毛位置和大小调整
     eyebrows: {
-      width: 160,
-      height: 25,
+      width: 100,
+      height: 15,
       className:
-        'absolute left-1/2 top-[34%] -translate-x-1/2 -translate-y-1/2',
+        'absolute left-1/2 top-[38%] -translate-x-1/2 -translate-y-1/2',
       zIndex: 70,
     },
-    // 头发需要覆盖头部上方和两侧
+    // 头发需要覆盖头部
     hair: {
-      width: 300,
-      height: 300,
-      className: 'absolute inset-0 m-auto',
+      width: 200,
+      height: 240,
+      className: 'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
       zIndex: 80,
     },
-    // 嘴巴需要在鼻子下方适当位置
+    // 嘴巴大小和位置调整
     mouth: {
-      width: 80,
-      height: 35,
+      width: 60,
+      height: 25,
       className:
-        'absolute left-1/2 top-[68%] -translate-x-1/2 -translate-y-1/2',
+        'absolute left-1/2 top-[70%] -translate-x-1/2 -translate-y-1/2',
       zIndex: 100,
     },
-    // 耳朵需要在头部两侧中间位置
+    // 耳朵位置调整
     ears: {
-      width: 300,
-      height: 300,
-      className:
-        'absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2',
+      width: 240,
+      height: 240,
+      className: 'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
       zIndex: 102,
     },
   }
@@ -437,13 +436,13 @@ export default function LandingBody() {
 
         <div className='w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8 my-8'>
           {/* Preview Area */}
-          <div className='relative'>
+          <div className='relative h-[500px]'>
             <canvas
               ref={confettiRef}
               className='absolute inset-0 w-full h-full z-10'
             />
-            <div className='bg-white dark:bg-zinc-900 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-zinc-800'>
-              <div className='w-[300px] h-[300px] mx-auto rounded-xl relative'>
+            <div className='flex flex-col justify-center items-center bg-white dark:bg-zinc-900 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-zinc-800 h-full'>
+              <div className='w-[240px] h-[240px] mx-auto dark:to-pink-900/30 rounded-xl relative'>
                 {/* Display selected widgets */}
                 {Object.entries(selectedWidgets)
                   .sort(([a], [b]) => {
@@ -481,7 +480,7 @@ export default function LandingBody() {
           </div>
 
           {/* Control Panel */}
-          <div className='bg-white dark:bg-zinc-900 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-zinc-800'>
+          <div className='bg-white dark:bg-zinc-900 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-zinc-800 h-[500px]'>
             <div className='flex flex-col h-full'>
               {/* Tabs */}
               <div className='flex space-x-4 border-b border-gray-200 dark:border-zinc-700 mb-6 scrollbar-hide overflow-x-scroll overflow-y-hidden'>
@@ -500,13 +499,13 @@ export default function LandingBody() {
                 ))}
               </div>
 
-              {/* Tab Content Area */}
+              {/* Tab Content Area - 添加滚动条 */}
               <div className='flex-1 overflow-y-auto'>
                 {TabContent[activeTab as keyof typeof TabContent]}
               </div>
 
               {/* Generate Button */}
-              <div className='pt-6 mt-auto'>
+              <div className='pt-6'>
                 <button
                   className='w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:opacity-90 transition-opacity'
                   onClick={handleCreateAvatar}
