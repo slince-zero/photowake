@@ -26,6 +26,7 @@ jobs:
         with:
           fetch-depth: 0
 
+      # 生成版本号
       - name: Generate version
         id: version
         run: |
@@ -136,18 +137,6 @@ jobs:
           done
           echo "Health check failed after ${{ env.HEALTH_CHECK_RETRIES }} attempts"
           exit 1
-
-      - name: Rollback on failure
-        if: failure()
-        run: |
-          echo "=== Starting Rollback ==="
-          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'ENDSSH'
-            cd /home/photowake
-            # 恢复备份的 docker-compose.yml
-            mv docker-compose.yml.backup docker-compose.yml
-            # 重启使用旧配置
-            docker-compose up -d --force-recreate
-          ENDSSH
 
       - name: Cleanup
         if: always()
