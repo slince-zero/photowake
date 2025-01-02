@@ -6,7 +6,7 @@ const Footer = () => {
           href='#'
           className='hover:text-gray-900 dark:hover:text-gray-100 transition-colors'
         >
-          License
+          License11
         </a>
         <a
           href='https://github.com/slince-zero/PhotoWake'
