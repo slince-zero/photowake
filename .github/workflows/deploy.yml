@@ -106,8 +106,11 @@ jobs:
             set -e  # 任何命令失败立即退出
             cd /home/photowake
             
-            # 添加这些行来创建或更新 .env 文件
-            cat > .env << EOF
+            # 确保 web 目录存在
+            mkdir -p web
+            
+            # 创建 web/.env 文件
+            cat > web/.env << EOF
             NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
             EOF
             
