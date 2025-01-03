@@ -3,8 +3,6 @@
 import { createContext, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import { ThemeProvider, useTheme } from 'next-themes'
-import { dark, experimental__simple } from '@clerk/themes'
-import { ClerkProvider } from '@clerk/nextjs'
 
 function usePrevious<T>(value: T) {
   const ref = useRef<T>(value)
@@ -53,22 +51,5 @@ export function Providers({ children }: { children: React.ReactNode }) {
         {children}
       </ThemeProvider>
     </AppContext.Provider>
-  )
-}
-
-export function ClerkProviderWithTheme({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  const { resolvedTheme } = useTheme()
-  return (
-    <ClerkProvider
-      appearance={{
-        baseTheme: resolvedTheme === 'dark' ? dark : experimental__simple,
-      }}
-    >
-      {children}
-    </ClerkProvider>
   )
 }

@@ -7,7 +7,6 @@ import cn from 'classnames'
 import { MoonStar, Sun, Github } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { getTest } from '@/app/api/test'
-import { useAuth, SignInButton, UserButton } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -18,8 +17,6 @@ export default function HeaderBar() {
   const handleOpenDropdownHaderBar = () => {
     setIsOpen(!isOpen)
   }
-
-  const { sessionId } = useAuth()
 
   useEffect(() => {
     // 打开下拉菜单时，禁止滚动
@@ -192,21 +189,9 @@ export default function HeaderBar() {
           )}
         </div>
 
-        <div className='items-center gap-4 hidden md:flex'>
+        <div className='items-center gap-4 hidden md:flex mr-4'>
           <ThemeToggle />
           <LanguageToggle />
-          {sessionId ? (
-            <UserButton />
-          ) : (
-            <SignInButton mode='modal'>
-              <button
-                // onClick={handleTest}
-                className='px-4 py-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90 transition-opacity'
-              >
-                Login
-              </button>
-            </SignInButton>
-          )}
         </div>
       </div>
     </>

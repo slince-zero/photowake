@@ -1,8 +1,5 @@
 FROM node:20-alpine
 
-# 添加构建参数
-ARG NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-ENV NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=$NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
 
 WORKDIR /web
 
@@ -12,13 +9,9 @@ RUN npm install -g pnpm && pnpm install
 
 COPY . .
 
-# 确保在构建时使用环境变量
 ENV NODE_ENV=production
-ENV NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=$NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-
 RUN pnpm run build
 
 EXPOSE 3000
 
-# 确保在运行时也能获取环境变量
-CMD ["sh", "-c", "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=$NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY pnpm start"]
+CMD ["pnpm", "start"]

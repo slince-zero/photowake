@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import '@/app/globals.css'
 import { getMessages } from 'next-intl/server'
 import { NextIntlClientProvider } from 'next-intl'
-import { ClerkProviderWithTheme, Providers } from '../providers'
+import { Providers } from '../providers'
 import { inter } from '../utils/font'
 
 export const metadata: Metadata = {
@@ -30,9 +30,7 @@ export default async function RootLayout({
         className={`${inter.className} antialiased h-full bg-white dark:bg-zinc-900`}
       >
         <NextIntlClientProvider messages={messages}>
-          <Providers>
-            <ClerkProviderWithTheme>{children}</ClerkProviderWithTheme>
-          </Providers>
+          <Providers>{children}</Providers>
         </NextIntlClientProvider>
       </body>
     </html>

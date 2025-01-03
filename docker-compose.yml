@@ -8,8 +8,6 @@ services:
     env_file:
       - ./web/.env
     restart: always
-    environment:
-      - NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
 
   photowake-backend:
     image: ghcr.io/slince-zero/photowake-backend:latest
