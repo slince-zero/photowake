@@ -103,16 +103,23 @@ jobs:
             set -e  # 任何命令失败立即退出
             cd /home/photowake
 
-            mkdir -p web server
+            # 确保目录存在并设置正确的权限
+            sudo mkdir -p web server
+            sudo chown -R $USER:$USER web server
+
             # 创建前端环境文件
-            echo "# 添加前端需要的环境变量" > web/.env
-            echo "NEXT_PUBLIC_API_URL=http://199.245.101.224:3080/api" >> web/.env
-            echo "# ... 其他前端环境变量" >> web/.env
+            cat > web/.env << EOL
+            NEXT_PUBLIC_API_URL=http://199.245.101.224:3080/api
+            # ... 其他前端环境变量
+            EOL
 
             # 创建后端环境文件
-            echo "# 添加后端需要的环境变量" > server/.env
-            echo "# ..." >> server/.env
+            cat > server/.env << EOL
+            # 添加后端需要的环境变量
+            # ...
+            EOL
 
+            # 设置环境文件权限
             chmod 600 web/.env server/.env
             
             # 备份当前的 docker-compose.yml
