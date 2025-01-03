@@ -99,39 +99,19 @@ jobs:
         id: deploy
         run: |
           echo "=== Starting Deployment ==="
-          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'ENDSSH'
-            set -e  # 任何命令失败立即退出
-            cd /home/photowake
-
-            # 确保目录存在并设置正确的权限
-            sudo mkdir -p web server
-            sudo chown -R $USER:$USER web server
-            
-            # 创建环境文件（如果不存在）并设置正确的权限
-            touch web/.env server/.env
-            chmod 600 web/.env server/.env
-            
-            # 写入必要的环境变量
-            echo "NODE_ENV=production" > web/.env
-            echo "NODE_ENV=production" > server/.env
-            
-            # 备份当前的 docker-compose.yml
-            cp docker-compose.yml docker-compose.yml.backup
-            
-            # 停止并删除所有相关容器
-            docker-compose down || true
-            
-            # 拉取新版本镜像
-            docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:${{ env.VERSION }}
-            docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:${{ env.VERSION }}
-            
-            # 更新 docker-compose.yml 中的镜像标签
-            sed -i "s|image: .*frontend:.*|image: ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:${{ env.VERSION }}|" docker-compose.yml
-            sed -i "s|image: .*backend:.*|image: ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:${{ env.VERSION }}|" docker-compose.yml
-            
-            # 启动新容器
-            docker-compose up -d --force-recreate
-          ENDSSH
+          # 复制 docker-compose 文件到服务器
+          scp deploy-compose.yml ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/home/photowake/docker-compose.yml
+          
+          # 执行部署命令
+          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "cd /home/photowake && \
+          docker-compose down || true && \
+          sudo mkdir -p web server && \
+          sudo chown -R \$USER:\$USER . && \
+          docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:${{ env.VERSION }} && \
+          docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:${{ env.VERSION }} && \
+          sed -i 's|image: .*frontend:.*|image: ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:${{ env.VERSION }}|' docker-compose.yml && \
+          sed -i 's|image: .*backend:.*|image: ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:${{ env.VERSION }}|' docker-compose.yml && \
+          docker-compose up -d --force-recreate"
 
       # 健康检查
       - name: Health check
