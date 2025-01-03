@@ -103,17 +103,6 @@ jobs:
             set -e  # 任何命令失败立即退出
             cd /home/photowake
             
-            # 确保 web 目录存在
-            mkdir -p web
-            
-            # 创建 web/.env 文件
-            cat > web/.env << EOF
-            NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
-            EOF
-            
-            # 导出环境变量，确保 docker-compose 可以使用
-            export NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
-            
             # 备份当前的 docker-compose.yml
             cp docker-compose.yml docker-compose.yml.backup
             
