@@ -5,16 +5,16 @@ services:
     image: ghcr.io/slince-zero/photowake-frontend:latest
     ports:
       - "3000:3000"
-    env_file:
-      - ./web/.env
+    environment:
+      - NODE_ENV=production
     restart: always
 
   photowake-backend:
     image: ghcr.io/slince-zero/photowake-backend:latest
     ports:
       - "3080:3080"
-    env_file:
-      - ./server/.env
+    environment:
+      - NODE_ENV=production
     restart: always
 
   nginx:

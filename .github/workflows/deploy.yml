@@ -105,15 +105,15 @@ jobs:
 
             # 确保目录存在并设置正确的权限
             sudo mkdir -p web server
-
-            # 确保当前用户拥有目录的所有权
             sudo chown -R $USER:$USER web server
             
-            # 如果 .env 文件不存在，创建空文件
+            # 创建环境文件（如果不存在）并设置正确的权限
             touch web/.env server/.env
-
-            # 设置环境文件权限
             chmod 600 web/.env server/.env
+            
+            # 写入必要的环境变量
+            echo "NODE_ENV=production" > web/.env
+            echo "NODE_ENV=production" > server/.env
             
             # 备份当前的 docker-compose.yml
             cp docker-compose.yml docker-compose.yml.backup
