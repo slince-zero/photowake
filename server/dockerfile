@@ -2,7 +2,7 @@ FROM node:20-alpine
 
 LABEL description="Backend server for avatar generator"
 
-WORKDIR /server
+WORKDIR /app
 
 COPY package.json ./
 
@@ -15,5 +15,6 @@ RUN pnpm run build
 EXPOSE 3080
 
 ENV NODE_ENV=production
+ENV PORT=3080
 
 CMD ["pnpm", "run", "start"]
