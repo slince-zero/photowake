@@ -105,17 +105,13 @@ jobs:
 
             mkdir -p web server
             # 创建前端环境文件
-            cat > web/.env << 'EOF'
-            # 添加前端需要的环境变量
-            NEXT_PUBLIC_API_URL=http://199.245.101.224:3080/api
-            # ... 其他前端环境变量
-            EOF
+            echo "# 添加前端需要的环境变量" > web/.env
+            echo "NEXT_PUBLIC_API_URL=http://199.245.101.224:3080/api" >> web/.env
+            echo "# ... 其他前端环境变量" >> web/.env
 
             # 创建后端环境文件
-            cat > server/.env << 'EOF'
-            # 添加后端需要的环境变量
-            # ...
-            EOF
+            echo "# 添加后端需要的环境变量" > server/.env
+            echo "# ..." >> server/.env
 
             chmod 600 web/.env server/.env
             
