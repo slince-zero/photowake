@@ -5,15 +5,15 @@ import { Check } from 'lucide-react'
 import JSConfetti from 'js-confetti'
 import { useRef, useState } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
-import Image from 'next/image'
 import TabContent from './tab-content'
-import { WIDGET_STYLES } from '@/app/constants/avatar-config'
+import { WIDGET_STYLES, DEFAULT_AVATAR, HAIR_COLORS } from '@/app/constants/avatar-config'
 import { SelectedWidgets } from '@/app/types/avatar'
 
 export default function LandingBody() {
   const confettiRef = useRef<HTMLCanvasElement>(null)
   const [activeTab, setActiveTab] = useState('Style')
-  const [selectedWidgets, setSelectedWidgets] = useState<SelectedWidgets>({})
+  const [selectedWidgets, setSelectedWidgets] = useState<SelectedWidgets>(DEFAULT_AVATAR)
+  const [hairColor, setHairColor] = useState(HAIR_COLORS[0].value)
   const t = useTranslations('LandingBody')
   const locale = useLocale()
 
@@ -144,37 +144,68 @@ export default function LandingBody() {
             <canvas ref={confettiRef} className='absolute inset-0 w-full h-full z-10' />
             <div className='flex flex-col justify-center items-center bg-white dark:bg-zinc-900 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-zinc-800 h-full'>
               <div className='w-[240px] h-[240px] mx-auto dark:to-pink-900/30 rounded-xl relative'>
-                {Object.entries(selectedWidgets)
-                  .sort(([a], [b]) => {
-                    const styleA = WIDGET_STYLES[a as keyof typeof WIDGET_STYLES]
-                    const styleB = WIDGET_STYLES[b as keyof typeof WIDGET_STYLES]
-                    return styleA.zIndex - styleB.zIndex
-                  })
-                  .map(([type, path]) => {
-                    if (!path) return null
-                    const style = WIDGET_STYLES[type as keyof typeof WIDGET_STYLES]
-                    return (
-                      <div
-                        key={type}
-                        className={style.className}
-                        style={{
-                          width: style.width,
-                          height: style.height,
-                          position: 'absolute',
-                          zIndex: style.zIndex,
-                        }}
-                      >
-                        <Image
-                          src={path}
-                          alt={type}
-                          width={style.width}
-                          height={style.height}
-                          className='w-full h-full object-contain'
-                          priority
-                        />
-                      </div>
-                    )
-                  })}
+                <svg
+                  viewBox="0 0 240 240"
+                  className="w-full h-full"
+                  style={{ overflow: 'visible' }}
+                >
+                  {Object.entries(selectedWidgets)
+                    .sort(([a], [b]) => {
+                      const styleA = WIDGET_STYLES[a as keyof typeof WIDGET_STYLES]
+                      const styleB = WIDGET_STYLES[b as keyof typeof WIDGET_STYLES]
+                      return styleA.zIndex - styleB.zIndex
+                    })
+                    .map(([type, path]) => {
+                      if (!path) return null
+                      const style = WIDGET_STYLES[type as keyof typeof WIDGET_STYLES]
+                      const isHair = type === 'hair'
+                      return (
+                        <g
+                          key={type}
+                          style={{
+                            transform: 'translate(120px, 120px)',
+                            zIndex: style.zIndex,
+                          }}
+                        >
+                          {isHair ? (
+                            <foreignObject
+                              x={-(style.width / 2)}
+                              y={-(style.height / 2)}
+                              width={style.width}
+                              height={style.height}
+                            >
+                              <div
+                                style={{
+                                  width: '100%',
+                                  height: '100%',
+                                  backgroundColor: hairColor,
+                                  WebkitMaskImage: `url(${path})`,
+                                  WebkitMaskSize: 'contain',
+                                  WebkitMaskRepeat: 'no-repeat',
+                                  WebkitMaskPosition: 'center',
+                                  maskImage: `url(${path})`,
+                                  maskSize: 'contain',
+                                  maskRepeat: 'no-repeat',
+                                  maskPosition: 'center',
+                                }}
+                              />
+                            </foreignObject>
+                          ) : (
+                            <image
+                              href={path}
+                              x={-(style.width / 2)}
+                              y={-(style.height / 2)}
+                              width={style.width}
+                              height={style.height}
+                              style={{
+                                transformOrigin: 'center',
+                              }}
+                            />
+                          )}
+                        </g>
+                      )
+                    })}
+                </svg>
               </div>
             </div>
           </div>
@@ -207,6 +238,33 @@ export default function LandingBody() {
                   onWidgetSelect={handleWidgetSelect}
                   onWidgetClear={handleClearWidget}
                 />
+                
+                {/* Hair Color Selector */}
+                {activeTab === 'Hair' && selectedWidgets.hair && (
+                  <div className='mt-4 p-4 bg-gray-50 dark:bg-zinc-800 rounded-lg'>
+                    <h3 className='text-sm font-medium mb-3 text-gray-700 dark:text-gray-300'>
+                      {t('Hair Color')}
+                    </h3>
+                    <div className='flex flex-wrap gap-2'>
+                      {HAIR_COLORS.map((color) => (
+                        <button
+                          key={color.value}
+                          className={`w-8 h-8 rounded-full border-2 transition-all ${
+                            hairColor === color.value
+                              ? 'border-purple-600 scale-110'
+                              : 'border-transparent hover:scale-105'
+                          }`}
+                          style={{ 
+                            backgroundColor: color.value,
+                            boxShadow: hairColor === color.value ? '0 0 0 2px rgba(147, 51, 234, 0.3)' : 'none'
+                          }}
+                          onClick={() => setHairColor(color.value)}
+                          title={color.name}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Generate Button */}

@@ -65,4 +65,24 @@ export const WIDGET_PATHS = {
   mouth: ['/widgets/mouth/mouth_1.svg', '/widgets/mouth/mouth_2.svg'],
   ears: ['/widgets/ears/ear.svg'],
   hair: ['/widgets/hair/hair_1.svg', '/widgets/hair/hair_2.svg'],
-} 
+}
+
+export const DEFAULT_AVATAR = {
+  face: '/widgets/face/face.svg',
+  eyes: '/widgets/eyes/eye_1.svg',
+  eyebrows: '/widgets/eyebrows/eyebrow_1.svg',
+  nose: '/widgets/nose/nose_1.svg',
+  mouth: '/widgets/mouth/mouth_1.svg',
+  hair: '/widgets/hair/hair_1.svg',
+}
+
+export const HAIR_COLORS = [
+  { name: 'Black', value: '#000000' },
+  { name: 'Brown', value: '#4A3728' },
+  { name: 'Blonde', value: '#F4D03F' },
+  { name: 'Red', value: '#C0392B' },
+  { name: 'Gray', value: '#7F8C8D' },
+  { name: 'Pink', value: '#FF69B4' },
+  { name: 'Purple', value: '#8E44AD' },
+  { name: 'Blue', value: '#3498DB' },
+] 
