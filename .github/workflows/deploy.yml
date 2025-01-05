@@ -119,6 +119,8 @@ jobs:
       # 健康检查
       - name: Health check
         run: |
+          echo "Waiting for services to start up..."
+          sleep 30
           for i in $(seq 1 ${{ env.HEALTH_CHECK_RETRIES }}); do
             echo "Health check attempt $i of ${{ env.HEALTH_CHECK_RETRIES }}"
             if curl -f http://${{ secrets.SERVER_IP }}/health; then
@@ -131,6 +133,8 @@ jobs:
             fi
           done
           echo "Health check failed after ${{ env.HEALTH_CHECK_RETRIES }} attempts"
+          echo "Checking container logs..."
+          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "cd /home/photowake && docker-compose logs"
           exit 1
 
       - name: Cleanup
