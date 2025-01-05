@@ -163,7 +163,15 @@ export default function LandingBody() {
                         <g
                           key={type}
                           style={{
-                            transform: 'translate(120px, 120px)',
+                            // transform: 'translate(120px, 120px)',
+                            transform:
+                            type === 'face' ? 'translate(120px, 120px)' :
+                            type === 'eyes' ? 'translate(120px, 109px)' :
+                            type === 'nose' ? 'translate(120px, 120px)' :
+                            type === 'eyebrows' ? 'translate(120px, 82px)' :
+                            type === 'ears' ? 'translate(120px, 120px)' :
+                            type === 'mouth' ? 'translate(120px, 160px)' :
+                            type === 'hair' ? 'translate(120px, 40px)' : '',
                             zIndex: style.zIndex,
                           }}
                         >

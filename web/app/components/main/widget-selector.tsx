@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import { X } from 'lucide-react'
 
 interface WidgetSelectorProps {
   src: string
@@ -16,7 +15,6 @@ export default function WidgetSelector({
   type,
   selectedPath,
   onSelect,
-  onClear,
 }: WidgetSelectorProps) {
   const isSelected = selectedPath === src
 
@@ -34,14 +32,6 @@ export default function WidgetSelector({
         }`}
         onClick={() => onSelect(type, src)}
       />
-      {isSelected && (
-        <button
-          onClick={() => onClear(type)}
-          className='absolute -top-2 -right-2 p-1 bg-red-500 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity'
-        >
-          <X size={14} />
-        </button>
-      )}
     </div>
   )
-} 
+}
