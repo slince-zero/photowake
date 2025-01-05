@@ -99,11 +99,12 @@ jobs:
         id: deploy
         run: |
           echo "=== Starting Deployment ==="
-
-          mkdir -p /home/photowake/web /home/photowake/server
+          # 复制 docker-compose 文件到服务器
+          scp deploy-compose.yml ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/home/photowake/docker-compose.yml
 
           # 执行部署命令
-          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "cd /home/photowake && \
+          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "sudo mkdir -p /home/photowake/web /home/photowake/server && \
+          cd /home/photowake && \
           docker-compose down || true && \
           sudo chown -R \$USER:\$USER . && \
           docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:${{ env.VERSION }} && \
