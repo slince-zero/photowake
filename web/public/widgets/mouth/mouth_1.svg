@@ -1,3 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="41" height="13" viewBox="0 0 41 13">
-  <image id="嘴1" width="41" height="13" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAACkAAAANCAYAAAA0XUfWAAABRElEQVRIicXWTStFcRDH8Y+HyA3Jw5IoQspCVpSFzV15E96DFBsLWysrhTcgNoqVhbKwkYgNpTznIVIWFrj61/9KujjC9atZnDNzznxnzszpD0UYwymuMY0q/6MazOASBxhCQSAZR+adraIkz5gprOdgGQ3OixyOYAt5BK2OjcnFcRgC7j5wZmJlTX8M2I+jTxjOQtDsJwHB7uNIlP8yXAvm8PxF/skQXIv9LwKD3WACXT8AK8UA5vGYIOcWKgviw81YQUPCZOdYwyb24vVl7EpWqbit9ehAN3ri/SQK707j6m1sANxOUF0+bAkVHxVShql/hHvAMAqTtDodP2M+AZfRmnAUXlWMQez+IdgTFtH7Xbhc6otjcPpLYBsYQWOS5Nnt/o7a4pZ2oj0uXF3c2jDTWd3GGTvBMXbixoa/QjgjJBNeAK5e9Ajc028KAAAAAElFTkSuQmCC"/>
+<svg width="64" height="17" viewBox="0 0 64 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="5" cy="5.2804" r="5" fill="#F7B4B4"/>
+<circle cx="59" cy="5.2804" r="5" fill="#F7B4B4"/>
+<path d="M5.5 6.2804C14 12.6137 36.3 21.4804 57.5 6.2804" stroke="black" stroke-width="3" stroke-linecap="round"/>
 </svg>

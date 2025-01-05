@@ -55,6 +55,7 @@ export default function HeaderBar() {
           <Image
             src='/logo.png'
             alt='Logo'
+            priority={true}
             width={40}
             height={40}
             onClick={handleTest}

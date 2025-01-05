@@ -1,43 +1,44 @@
 export const WIDGET_STYLES = {
   face: {
-    width: 200,
-    height: 240,
+    width: 174,
+    height: 175,
     className: 'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
     zIndex: 10,
   },
   eyes: {
-    width: 100,
-    height: 30,
+    width: 68,
+    height: 18,
     className: 'absolute left-1/2 top-[45%] -translate-x-1/2 -translate-y-1/2',
     zIndex: 50,
   },
   nose: {
-    width: 30,
-    height: 30,
+    width: 3,
+    height: 27,
     className: 'absolute left-1/2 top-[55%] -translate-x-1/2 -translate-y-1/2',
     zIndex: 60,
   },
   eyebrows: {
-    width: 100,
-    height: 15,
+    width: 97,
+    height: 8,
     className: 'absolute left-1/2 top-[38%] -translate-x-1/2 -translate-y-1/2',
     zIndex: 70,
   },
-  hair: {
-    width: 200,
-    height: 240,
+  ears: {
+    width: 223,
+    height: 44,
     className: 'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
     zIndex: 80,
   },
+
   mouth: {
-    width: 60,
-    height: 25,
+    width: 64,
+    height: 17,
     className: 'absolute left-1/2 top-[70%] -translate-x-1/2 -translate-y-1/2',
     zIndex: 100,
   },
-  ears: {
-    width: 240,
-    height: 240,
+  hair: {
+    width: 223,
+    height: 157,
     className: 'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
     zIndex: 102,
   },
@@ -58,18 +59,43 @@ export const ACCESSORIES_OPTIONS = {
 }
 
 export const WIDGET_PATHS = {
-  face: '/widgets/face/face.svg',
-  eyes: ['/widgets/eyes/eye_1.svg', '/widgets/eyes/eye_2.svg'],
-  eyebrows: ['/widgets/eyebrows/eyebrow_1.svg'],
-  nose: ['/widgets/nose/nose_1.svg', '/widgets/nose/nose_2.svg'],
-  mouth: ['/widgets/mouth/mouth_1.svg', '/widgets/mouth/mouth_2.svg'],
+  face: [
+    '/widgets/face/face_1.svg',
+    '/widgets/face/face_2.svg',
+    '/widgets/face/face_3.svg',
+  ],
+  eyes: [
+    '/widgets/eyes/eye_1.svg',
+    '/widgets/eyes/eye_2.svg',
+    '/widgets/eyes/eye_3.svg',
+  ],
+  eyebrows: [
+    '/widgets/eyebrows/eyebrow_1.svg',
+    '/widgets/eyebrows/eyebrow_2.svg',
+    '/widgets/eyebrows/eyebrow_3.svg',
+  ],
+  nose: [
+    '/widgets/nose/nose_1.svg',
+    '/widgets/nose/nose_2.svg',
+    '/widgets/nose/nose_3.svg',
+  ],
+  mouth: [
+    '/widgets/mouth/mouth_1.svg',
+    '/widgets/mouth/mouth_2.svg',
+    '/widgets/mouth/mouth_3.svg',
+  ],
   ears: ['/widgets/ears/ear.svg'],
-  hair: ['/widgets/hair/hair_1.svg', '/widgets/hair/hair_2.svg'],
+  hair: [
+    '/widgets/hair/hair_1.svg',
+    '/widgets/hair/hair_2.svg',
+    '/widgets/hair/hair_3.svg',
+  ],
 }
 
 export const DEFAULT_AVATAR = {
-  face: '/widgets/face/face.svg',
+  face: '/widgets/face/face_1.svg',
   eyes: '/widgets/eyes/eye_1.svg',
+  ears: '/widgets/ears/ear.svg',
   eyebrows: '/widgets/eyebrows/eyebrow_1.svg',
   nose: '/widgets/nose/nose_1.svg',
   mouth: '/widgets/mouth/mouth_1.svg',
@@ -85,4 +111,4 @@ export const HAIR_COLORS = [
   { name: 'Pink', value: '#FF69B4' },
   { name: 'Purple', value: '#8E44AD' },
   { name: 'Blue', value: '#3498DB' },
-] 
+]
