@@ -99,12 +99,15 @@ jobs:
         id: deploy
         run: |
           echo "=== Starting Deployment ==="
+          # 首先在服务器上创建必要的目录
+          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "sudo mkdir -p /home/photowake && sudo chown -R \$USER:\$USER /home/photowake"
+          
           # 复制 docker-compose 文件到服务器
           scp docker-compose.yml ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/home/photowake/docker-compose.yml
 
           # 执行部署命令
-          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "sudo mkdir -p /home/photowake/web /home/photowake/server && \
-          cd /home/photowake && \
+          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "cd /home/photowake && \
+          sudo mkdir -p web server && \
           docker-compose down || true && \
           sudo chown -R \$USER:\$USER . && \
           docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:${{ env.VERSION }} && \
