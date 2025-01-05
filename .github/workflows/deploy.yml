@@ -100,10 +100,11 @@ jobs:
         run: |
           echo "=== Starting Deployment ==="
 
+          mkdir -p /home/photowake/web /home/photowake/server
+
           # 执行部署命令
           ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "cd /home/photowake && \
           docker-compose down || true && \
-          sudo mkdir -p web server && \
           sudo chown -R \$USER:\$USER . && \
           docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:${{ env.VERSION }} && \
           docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:${{ env.VERSION }} && \
