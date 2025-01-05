@@ -99,9 +99,7 @@ jobs:
         id: deploy
         run: |
           echo "=== Starting Deployment ==="
-          # 复制 docker-compose 文件到服务器
-          scp deploy-compose.yml ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/home/photowake/docker-compose.yml
-          
+
           # 执行部署命令
           ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "cd /home/photowake && \
           docker-compose down || true && \
