@@ -12,8 +12,8 @@ export const WIDGET_STYLES = {
     zIndex: 50,
   },
   nose: {
-    width: 3,
-    height: 27,
+    width: 20,
+    height: 20,
     className: 'absolute left-1/2 top-[55%] -translate-x-1/2 -translate-y-1/2',
     zIndex: 60,
   },

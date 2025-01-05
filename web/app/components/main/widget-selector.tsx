@@ -25,7 +25,7 @@ export default function WidgetSelector({
         alt={alt}
         width={100}
         height={100}
-        className={`cursor-pointer rounded-lg p-2 ${
+        className={`cursor-pointer rounded-lg p-2 h-20 ${
           isSelected
             ? 'bg-purple-100 dark:bg-purple-900'
             : 'hover:bg-purple-50 dark:hover:bg-purple-950'

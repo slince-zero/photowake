@@ -163,15 +163,37 @@ export default function LandingBody() {
                         <g
                           key={type}
                           style={{
-                            // transform: 'translate(120px, 120px)',
                             transform:
                             type === 'face' ? 'translate(120px, 120px)' :
-                            type === 'eyes' ? 'translate(120px, 109px)' :
-                            type === 'nose' ? 'translate(120px, 120px)' :
-                            type === 'eyebrows' ? 'translate(120px, 82px)' :
+                            type === 'eyes' ? (
+                              path.includes('eye_1.svg') ? 'translate(120px, 102px)' :
+                              path.includes('eye_2.svg') ? 'translate(120px, 102px) scale(1.2)' :
+                              path.includes('eye_3.svg') ? 'translate(120px, 102px) scale(1.2)' :
+                              'translate(120px, 102px)'
+                            ) :
+                            type === 'nose' ? (
+                              path.includes('nose_1.svg') ? 'translate(120px, 120px) scale(1.5)' :
+                              path.includes('nose_2.svg') ? 'translate(120px, 120px) scale(1.5)' :
+                              path.includes('nose_3.svg') ? 'translate(120px, 120px)' :
+                              'translate(120px, 120px)'
+                            ) :
+                            type === 'eyebrows' ? (
+                              path.includes('eyebrow_1.svg') ? 'translate(120px, 80px)' :
+                              path.includes('eyebrow_2.svg') ? 'translate(120px, 80px) scale(1.5)' :
+                              path.includes('eyebrow_3.svg') ? 'translate(120px, 80px) scale(1.2)' :
+                              'translate(120px, 80px)'
+                            ) :
                             type === 'ears' ? 'translate(120px, 120px)' :
-                            type === 'mouth' ? 'translate(120px, 160px)' :
-                            type === 'hair' ? 'translate(120px, 40px)' : '',
+                            type === 'mouth' ? (
+                              path.includes('mouth_2.svg') ? 'translate(132px, 155px)':
+                              'translate(120px, 153px)'
+                            ) :
+                            type === 'hair' ? (
+                              path.includes('hair_1.svg') ? 'translate(106px, 0px)' :
+                              path.includes('hair_2.svg') ? 'translate(116px, 25px) scale(0.8)' :
+                              path.includes('hair_3.svg') ? 'translate(112px, 60px)' :
+                              'translate(120px, 40px)'
+                            ) : '',
                             zIndex: style.zIndex,
                           }}
                         >
@@ -179,8 +201,8 @@ export default function LandingBody() {
                             <foreignObject
                               x={-(style.width / 2)}
                               y={-(style.height / 2)}
-                              width={style.width}
-                              height={style.height}
+                              width='100%'
+                              height='100%'
                             >
                               <div
                                 style={{
