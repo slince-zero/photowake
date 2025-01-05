@@ -21,7 +21,7 @@ services:
     networks:
       - photowake-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3080/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:3080/api"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -52,8 +52,7 @@ services:
 
         # Backend API
         location /api {
-          rewrite ^/api/(.*) /\$$1 break;
-          proxy_pass http://photowake-backend:3080;
+          proxy_pass http://photowake-backend:3080/api;
           proxy_http_version 1.1;
           proxy_set_header Upgrade \$$http_upgrade;
           proxy_set_header Connection \"upgrade\";
@@ -63,7 +62,7 @@ services:
 
         # Health check endpoint
         location = /health {
-          proxy_pass http://photowake-backend:3080/api/health;
+          proxy_pass http://photowake-backend:3080/api;
           proxy_http_version 1.1;
           proxy_set_header Host \$$host;
           proxy_cache_bypass \$$http_upgrade;
