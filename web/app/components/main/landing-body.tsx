@@ -6,13 +6,19 @@ import JSConfetti from 'js-confetti'
 import { useRef, useState } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 import TabContent from './tab-content'
-import { WIDGET_STYLES, DEFAULT_AVATAR, HAIR_COLORS } from '@/app/constants/avatar-config'
+import {
+  WIDGET_STYLES,
+  DEFAULT_AVATAR,
+  HAIR_COLORS,
+  WIDGET_PATHS,
+} from '@/app/constants/avatar-config'
 import { SelectedWidgets } from '@/app/types/avatar'
 
 export default function LandingBody() {
   const confettiRef = useRef<HTMLCanvasElement>(null)
   const [activeTab, setActiveTab] = useState('Style')
-  const [selectedWidgets, setSelectedWidgets] = useState<SelectedWidgets>(DEFAULT_AVATAR)
+  const [selectedWidgets, setSelectedWidgets] =
+    useState<SelectedWidgets>(DEFAULT_AVATAR)
   const [hairColor, setHairColor] = useState(HAIR_COLORS[0].value)
   const t = useTranslations('LandingBody')
   const locale = useLocale()
@@ -50,7 +56,34 @@ export default function LandingBody() {
     }
   }
 
-  const tabs = ['Style', 'Face', 'Eyes', 'Eyebrows', 'Nose', 'Mouth', 'Ears', 'Hair', 'Accessories']
+  const handleRandomAvatar = () => {
+    const randomPick = <T,>(arr: readonly T[]): T =>
+      arr[Math.floor(Math.random() * arr.length)]
+
+    setSelectedWidgets({
+      face: randomPick(WIDGET_PATHS.face),
+      eyes: randomPick(WIDGET_PATHS.eyes),
+      eyebrows: randomPick(WIDGET_PATHS.eyebrows),
+      nose: randomPick(WIDGET_PATHS.nose),
+      mouth: randomPick(WIDGET_PATHS.mouth),
+      ears: randomPick(WIDGET_PATHS.ears),
+      hair: randomPick(WIDGET_PATHS.hair),
+    })
+
+    setHairColor(randomPick(HAIR_COLORS).value)
+  }
+
+  const tabs = [
+    'Style',
+    'Face',
+    'Eyes',
+    'Eyebrows',
+    'Nose',
+    'Mouth',
+    'Ears',
+    'Hair',
+    'Accessories',
+  ]
 
   return (
     <>
@@ -62,7 +95,9 @@ export default function LandingBody() {
           </h1>
           <span
             className={`text-4xl md:min-h-[70px] max-h-[60px] md:text-6xl font-bold text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent inline-block overflow-hidden w-0 animate-typing whitespace-nowrap border-r-4 border-r-purple-600 pb-2 leading-tight ${
-              locale === 'zh' ? '[--typing-width:6.4ch]' : '[--typing-width:10.4ch]'
+              locale === 'zh'
+                ? '[--typing-width:6.4ch]'
+                : '[--typing-width:10.4ch]'
             }`}
           >
             {t('Digital Avatar')}
@@ -98,7 +133,9 @@ export default function LandingBody() {
                 {t('Generate Avatar')}
               </h2>
             </div>
-            <p className='text-gray-600 leading-relaxed'>{t('Create your unique digital')}</p>
+            <p className='text-gray-600 leading-relaxed'>
+              {t('Create your unique digital')}
+            </p>
           </div>
 
           <div className='group bg-white dark:bg-zinc-900 p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-zinc-800 hover:border-purple-200'>
@@ -123,7 +160,9 @@ export default function LandingBody() {
                 {t('Personalized Coloring')}
               </h2>
             </div>
-            <p className='text-gray-600 leading-relaxed'>{t('Express your creativity')}</p>
+            <p className='text-gray-600 leading-relaxed'>
+              {t('Express your creativity')}
+            </p>
           </div>
         </div>
 
@@ -141,59 +180,76 @@ export default function LandingBody() {
         <div className='w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8 my-8'>
           {/* Preview Area */}
           <div className='relative h-[500px]'>
-            <canvas ref={confettiRef} className='absolute inset-0 w-full h-full z-10' />
+            <canvas
+              ref={confettiRef}
+              className='absolute inset-0 w-full h-full pointer-events-none z-50'
+            />
             <div className='flex flex-col justify-center items-center bg-white dark:bg-zinc-900 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-zinc-800 h-full'>
               <div className='w-[240px] h-[240px] mx-auto dark:to-pink-900/30 rounded-xl relative'>
                 <svg
-                  viewBox="0 0 240 240"
-                  className="w-full h-full"
+                  viewBox='0 0 240 240'
+                  className='w-full h-full'
                   style={{ overflow: 'visible' }}
                 >
                   {Object.entries(selectedWidgets)
                     .sort(([a], [b]) => {
-                      const styleA = WIDGET_STYLES[a as keyof typeof WIDGET_STYLES]
-                      const styleB = WIDGET_STYLES[b as keyof typeof WIDGET_STYLES]
+                      const styleA =
+                        WIDGET_STYLES[a as keyof typeof WIDGET_STYLES]
+                      const styleB =
+                        WIDGET_STYLES[b as keyof typeof WIDGET_STYLES]
                       return styleA.zIndex - styleB.zIndex
                     })
                     .map(([type, path]) => {
                       if (!path) return null
-                      const style = WIDGET_STYLES[type as keyof typeof WIDGET_STYLES]
+                      const style =
+                        WIDGET_STYLES[type as keyof typeof WIDGET_STYLES]
                       const isHair = type === 'hair'
                       return (
                         <g
                           key={type}
                           style={{
                             transform:
-                            type === 'face' ? 'translate(120px, 120px)' :
-                            type === 'eyes' ? (
-                              path.includes('eye_1.svg') ? 'translate(120px, 102px)' :
-                              path.includes('eye_2.svg') ? 'translate(120px, 102px) scale(1.2)' :
-                              path.includes('eye_3.svg') ? 'translate(120px, 102px) scale(1.2)' :
-                              'translate(120px, 102px)'
-                            ) :
-                            type === 'nose' ? (
-                              path.includes('nose_1.svg') ? 'translate(120px, 120px) scale(1.5)' :
-                              path.includes('nose_2.svg') ? 'translate(120px, 120px) scale(1.5)' :
-                              path.includes('nose_3.svg') ? 'translate(120px, 120px)' :
-                              'translate(120px, 120px)'
-                            ) :
-                            type === 'eyebrows' ? (
-                              path.includes('eyebrow_1.svg') ? 'translate(120px, 80px)' :
-                              path.includes('eyebrow_2.svg') ? 'translate(120px, 80px) scale(1.5)' :
-                              path.includes('eyebrow_3.svg') ? 'translate(120px, 80px) scale(1.2)' :
-                              'translate(120px, 80px)'
-                            ) :
-                            type === 'ears' ? 'translate(120px, 120px)' :
-                            type === 'mouth' ? (
-                              path.includes('mouth_2.svg') ? 'translate(132px, 155px)':
-                              'translate(120px, 153px)'
-                            ) :
-                            type === 'hair' ? (
-                              path.includes('hair_1.svg') ? 'translate(106px, 0px)' :
-                              path.includes('hair_2.svg') ? 'translate(116px, 25px) scale(0.8)' :
-                              path.includes('hair_3.svg') ? 'translate(112px, 60px)' :
-                              'translate(120px, 40px)'
-                            ) : '',
+                              type === 'face'
+                                ? 'translate(120px, 120px)'
+                                : type === 'eyes'
+                                  ? path.includes('eye_1.svg')
+                                    ? 'translate(120px, 102px)'
+                                    : path.includes('eye_2.svg')
+                                      ? 'translate(120px, 102px) scale(1.2)'
+                                      : path.includes('eye_3.svg')
+                                        ? 'translate(120px, 102px) scale(1.2)'
+                                        : 'translate(120px, 102px)'
+                                  : type === 'nose'
+                                    ? path.includes('nose_1.svg')
+                                      ? 'translate(120px, 120px) scale(1.5)'
+                                      : path.includes('nose_2.svg')
+                                        ? 'translate(120px, 120px) scale(1.5)'
+                                        : path.includes('nose_3.svg')
+                                          ? 'translate(120px, 120px)'
+                                          : 'translate(120px, 120px)'
+                                    : type === 'eyebrows'
+                                      ? path.includes('eyebrow_1.svg')
+                                        ? 'translate(120px, 80px)'
+                                        : path.includes('eyebrow_2.svg')
+                                          ? 'translate(120px, 80px) scale(1.5)'
+                                          : path.includes('eyebrow_3.svg')
+                                            ? 'translate(120px, 80px) scale(1.2)'
+                                            : 'translate(120px, 80px)'
+                                      : type === 'ears'
+                                        ? 'translate(120px, 120px)'
+                                        : type === 'mouth'
+                                          ? path.includes('mouth_2.svg')
+                                            ? 'translate(132px, 155px)'
+                                            : 'translate(120px, 153px)'
+                                          : type === 'hair'
+                                            ? path.includes('hair_1.svg')
+                                              ? 'translate(106px, 0px)'
+                                              : path.includes('hair_2.svg')
+                                                ? 'translate(116px, 25px) scale(0.8)'
+                                                : path.includes('hair_3.svg')
+                                                  ? 'translate(112px, 60px)'
+                                                  : 'translate(120px, 40px)'
+                                            : '',
                             zIndex: style.zIndex,
                           }}
                         >
@@ -237,6 +293,12 @@ export default function LandingBody() {
                     })}
                 </svg>
               </div>
+              <button
+                onClick={handleRandomAvatar}
+                className='mt-6 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-medium hover:opacity-90 transition-opacity'
+              >
+                {t('Random Generate')}
+              </button>
             </div>
           </div>
 
@@ -268,7 +330,7 @@ export default function LandingBody() {
                   onWidgetSelect={handleWidgetSelect}
                   onWidgetClear={handleClearWidget}
                 />
-                
+
                 {/* Hair Color Selector */}
                 {activeTab === 'Hair' && selectedWidgets.hair && (
                   <div className='mt-4 p-4 bg-gray-50 dark:bg-zinc-800 rounded-lg'>
@@ -284,9 +346,12 @@ export default function LandingBody() {
                               ? 'border-purple-600 scale-110'
                               : 'border-transparent hover:scale-105'
                           }`}
-                          style={{ 
+                          style={{
                             backgroundColor: color.value,
-                            boxShadow: hairColor === color.value ? '0 0 0 2px rgba(147, 51, 234, 0.3)' : 'none'
+                            boxShadow:
+                              hairColor === color.value
+                                ? '0 0 0 2px rgba(147, 51, 234, 0.3)'
+                                : 'none',
                           }}
                           onClick={() => setHairColor(color.value)}
                           title={color.name}
@@ -341,11 +406,17 @@ export default function LandingBody() {
               </li>
               <li className='flex items-start gap-2'>
                 <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
-                <span>{t('We never share your personal information with third parties')}</span>
+                <span>
+                  {t(
+                    'We never share your personal information with third parties'
+                  )}
+                </span>
               </li>
               <li className='flex items-start gap-2'>
                 <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
-                <span>{t('You maintain full ownership of your created avatars')}</span>
+                <span>
+                  {t('You maintain full ownership of your created avatars')}
+                </span>
               </li>
             </ul>
           </div>
@@ -358,7 +429,9 @@ export default function LandingBody() {
             <ul className='space-y-3 text-gray-600 dark:text-gray-400'>
               <li className='flex items-start gap-2'>
                 <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
-                <span>{t('Commercial use allowed with Pro and Enterprise plans')}</span>
+                <span>
+                  {t('Commercial use allowed with Pro and Enterprise plans')}
+                </span>
               </li>
               <li className='flex items-start gap-2'>
                 <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
@@ -366,7 +439,9 @@ export default function LandingBody() {
               </li>
               <li className='flex items-start gap-2'>
                 <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
-                <span>{t('Unlimited modifications to your generated avatars')}</span>
+                <span>
+                  {t('Unlimited modifications to your generated avatars')}
+                </span>
               </li>
             </ul>
           </div>
@@ -387,7 +462,9 @@ export default function LandingBody() {
               </li>
               <li className='flex items-start gap-2'>
                 <Check className='w-5 h-5 text-green-500 mt-1 flex-shrink-0' />
-                <span>{t('Service availability subject to maintenance windows')}</span>
+                <span>
+                  {t('Service availability subject to maintenance windows')}
+                </span>
               </li>
             </ul>
           </div>
