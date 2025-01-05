@@ -103,7 +103,7 @@ jobs:
           ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "sudo mkdir -p /home/photowake && sudo chown -R \$USER:\$USER /home/photowake"
           
           # 复制 docker-compose 文件到服务器
-          scp docker-compose.yml ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/home/photowake/docker-compose.yml
+          scp docker-compose.yml ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/home/photowake/
 
           # 执行部署命令
           ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "cd /home/photowake && \
