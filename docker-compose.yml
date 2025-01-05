@@ -22,7 +22,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - /home/photowake/nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       photowake-frontend:
         condition: service_started
