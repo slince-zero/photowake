@@ -1,9 +1,16 @@
+'use client'
+
+import React from 'react'
+import { useLanguageStore } from '@/app/store/useLanguageStore'
+
 const Footer = () => {
+  const currentLang = useLanguageStore((state) => state.currentLang)
+
   return (
     <div className='container mx-auto h-full flex flex-col items-center justify-center gap-2'>
       <div className='flex items-center gap-8 text-gray-600'>
         <a
-          href='#'
+          href={`/${currentLang}/license`}
           className='hover:text-gray-900 dark:hover:text-gray-100 transition-colors'
         >
           License
