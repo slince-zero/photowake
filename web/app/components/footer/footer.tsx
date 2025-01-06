@@ -30,7 +30,7 @@ const Footer = () => {
         </a>
       </div>
       <div className='text-sm text-gray-600 flex flex-col items-center justify-center'>
-        <p>Released under the ISC License.</p>
+        <p>Released under the MIT License.</p>
         <p className='mt-2'>Copyright © 2024 Your Project Contributors</p>
       </div>
     </div>
