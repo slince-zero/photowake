@@ -38,7 +38,9 @@ const Footer = () => {
       </div>
       <div className='text-sm text-gray-600 flex flex-col items-center justify-center'>
         <p>Released under the MIT License.</p>
-        <p className='mt-2'>Copyright © 2024 Your Project Contributors</p>
+        <p className='mt-2'>
+          Copyright © {new Date().getFullYear()} PhotoWake
+        </p>
       </div>
     </div>
   )
