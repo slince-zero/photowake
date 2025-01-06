@@ -95,7 +95,7 @@ docker-compose up -d
 ### Clerk 身份认证配置
 
 - 登录页面位于 `web/app/login/[[...rest]]/page.tsx`
-- 使用 Clerk 推荐的标准配置方式
+- 使用 Clerk 推荐的标准配置方式。
 
 ### 国际化配置 (next-intl)
 
@@ -106,14 +106,14 @@ docker-compose up -d
    - middleware.ts
 
 2. 注意事项：
-   - Next.js 15.0.4 需要处理异步路由参数
+   - Next.js 15.0.4 需要处理异步路由参数。
    - 配置完之后，项目会有一个错误，Route "/[locale]" used `params.locale`. `params` should be awaited before using its properties。这个错误是 Next.js 15.0.4 版本中的一个新要求。错误信息表示在使用动态路由参数 params.locale 之前需要先等待（await）它。这是因为在服务器组件中，params 是一个异步对象。
 
 - 使用以下命令修复 params 异步问题：
   ```bash
   npx @next/codemod@canary next-async-request-api .
   ```
-- 键名长度需要适中以确保正常翻译
+- 键名长度需要适中以确保正常翻译。
 
 ## 端口配置
 
