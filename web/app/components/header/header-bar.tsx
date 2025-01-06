@@ -168,7 +168,10 @@ export default function HeaderBar() {
       </div>
 
       {/* PC 导航栏 */}
-      <div className='hidden md:flex w-full h-16 px-6 items-center justify-between'>
+      <Link
+        href='/'
+        className='hidden md:flex w-full h-16 px-6 items-center justify-between'
+      >
         {/* Logo 区域 */}
         <div className='flex items-center gap-2'>
           {resolvedTheme === 'dark' ? (
@@ -194,7 +197,7 @@ export default function HeaderBar() {
           <ThemeToggle />
           <LanguageToggle />
         </div>
-      </div>
+      </Link>
     </>
   )
 }
